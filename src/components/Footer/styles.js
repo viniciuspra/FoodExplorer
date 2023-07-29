@@ -16,7 +16,7 @@ export const Container = styled.footer`
   font-size: clamp(0.8rem, 0.5rem + 1vw, 1.6rem);
 
   ${media.greaterThan("mobile")`
-    padding: 1.2rem 9.5rem;
+    padding: 1.2rem 6.5rem;
   `}
 
   ${media.greaterThan("tablet")`

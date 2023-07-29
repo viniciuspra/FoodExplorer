@@ -5,7 +5,7 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyles from "./styles/global";
 import theme from "./styles/theme";
 
-import Home from "./pages/Home";
+import Details from "./pages/Details";
 
 import Header from "./components/Header";
 import HeaderDesktop from "./components/HeaderDesktop";
@@ -22,7 +22,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
         {isMobile ? <Header /> : <HeaderDesktop />}
-      <Home />
+      <Details />
       <Footer />
     </ThemeProvider>
   </React.StrictMode>

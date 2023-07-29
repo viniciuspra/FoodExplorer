@@ -13,7 +13,7 @@ export const Container = styled.header`
   padding: 5.6rem 2.8rem 2.4rem;
 
   ${media.greaterThan("mobile")`
-    padding: 5.6rem 9.5rem 2.4rem;
+    padding: 5.6rem 6.5rem 2.4rem;
   `}
 
   display: flex;
