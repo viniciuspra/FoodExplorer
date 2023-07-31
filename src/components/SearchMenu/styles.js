@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { media } from "../../../breakpoints";
 
 const slideIn = keyframes`
   from {
@@ -26,7 +27,11 @@ export const Container = styled.div`
 
 export const CloseButtonWrapper = styled.div`
   background-color: ${({ theme }) => theme.COLORS.DARK_700};
-  padding: 5.6rem 2.8rem 2.6rem;
+  padding: 5.6rem 2.8rem 3.2rem;
+
+  ${media.greaterThan("mobile")`
+    padding: 5.6rem 4rem 3.2rem;
+  `}
 `;
 
 export const CloseButton = styled.button`
@@ -49,6 +54,9 @@ export const CloseButton = styled.button`
 export const ContentWrapper = styled.div`
   flex: 1;
   padding: 1rem 2.8rem;
+  ${media.greaterThan("mobile")`
+    padding: 5.6rem 4rem 2.4rem;
+  `}
 
   overflow-y: auto;
 `;
@@ -74,10 +82,10 @@ export const ExitButton = styled.button`
   padding-bottom: 1rem;
 `;
 
-export const FooterWrapper =styled.div`
+export const FooterWrapper = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   z-index: 100;
-`
+`;
