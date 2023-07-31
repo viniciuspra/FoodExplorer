@@ -2,18 +2,18 @@ import styled from "styled-components";
 import { media } from "../../../breakpoints";
 
 export const Container = styled.div`
-  padding: 16rem 2.4rem 4rem;
+  padding: 5rem 2.4rem 2rem;
 
   ${media.greaterThan("mobile")`
-    padding: 18rem 9.5rem 10rem;
+    padding: 6rem 4rem 3rem;
   `}
   
   ${media.greaterThan("tablet")`
-    padding: 21rem 9.5rem 10rem;
+    padding: 12rem 6.5rem 4rem;
   `}
 
   ${media.greaterThan("desktop")`
-    padding: 26rem 10rem 12rem;
+    padding: 16rem 10rem 6rem;
   `}
 
 `;
@@ -46,30 +46,41 @@ export const ContentWrapper = styled.div`
     text-align: center;
 
     font-family: "Poppins", serif;
+    margin-left: 0.1rem;
 
-    ${media.between("tablet", "desktop")`
+    ${media.greaterThan("mobile")`
       gap: 0.6rem;
-      margin-left: 8rem;
+      margin-left: 0.7rem;
+    `}
+
+    ${media.greaterThan("tablet")`
+      gap: 0.6rem;
+      margin-left: 9rem;
     `}
 
     ${media.greaterThan("desktop")`
-      width: 100%;
+      margin-left: clamp(15rem, 0.5rem + 20vw, 40rem);
     `}
 
     > h2 {
-      font-size: clamp(1.3rem, 0.7rem + 1vw, 2rem);
+      font-size: 1.5rem;
       font-weight: 500;
+      text-align: center;
+
+      ${media.greaterThan("mobile")`
+        font-size: clamp(2rem, 1.7rem + 1vw, 3rem);
+      `}
 
       ${media.between("tablet", "desktop")`
         font-size: clamp(2.5rem, 2rem + 1vw, 4rem);
       `}
 
       ${media.greaterThan("desktop")`
-        font-size: clamp(3rem, 3rem + 1vw, 8rem);
+        font-size: clamp(2rem, 2rem + 1.2vw, 4rem);
       `}
     }
     > p {
-      font-size: clamp(0.7rem, 0.3rem + 1vw, 1.4rem);
+      font-size: clamp(0.5rem, 0.3rem + 1vw, 1.4rem);
       
     }
   }

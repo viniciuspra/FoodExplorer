@@ -4,7 +4,7 @@ import imgDesktop from "../../assets/macaronDesktop.png"
 import { useMediaQuery } from "react-responsive";
 
 export default function Banner() {
-  const isMobile = useMediaQuery({ maxWidth: 768 })
+  const isMobile = useMediaQuery({ maxWidth: 767 })
 
   return (
     <Container>
