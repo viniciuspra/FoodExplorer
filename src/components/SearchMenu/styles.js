@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { media } from "../../../breakpoints";
+import { media } from "../../configs/breakpoints";
 
 const slideIn = keyframes`
   from {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { media } from "../../../breakpoints";
+import { media } from "../../configs/breakpoints";
 
 export const Container = styled.header`
   background-color: ${({ theme }) => theme.COLORS.DARK_700};

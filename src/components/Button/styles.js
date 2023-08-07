@@ -14,11 +14,14 @@ export const Container = styled.button`
 
   border-radius: 0.3rem;
 
-  background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
+  font-family: "Poppins", serif;
+  font-size: clamp(1.1rem, 0.5rem + 1vw, 1.6rem);
+
+  background-color: ${({ theme, isBlack }) => isBlack ? theme.COLORS.DARK_800 : theme.COLORS.TOMATO_100};
   color: ${({ theme }) => theme.COLORS.WHITE};
 
   &:hover {
-    background-color: ${({ theme }) => theme.COLORS.TOMATO_200};
+    background-color: ${({ theme, isBlack }) => isBlack ? theme.COLORS.DARK_900 : theme.COLORS.TOMATO_200};
   }
 
   &:disabled {

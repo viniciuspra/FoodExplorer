@@ -5,25 +5,18 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyles from "./styles/global";
 import theme from "./styles/theme";
 
-import Details from "./pages/Details";
+import { AuthProvider } from "./hooks/auth";
 
-import Header from "./components/Header";
-import HeaderDesktop from "./components/HeaderDesktop";
-
-import { useMediaQuery } from "react-responsive";
-import Footer from "./components/Footer";
-
+import Routes from "./routes";
 
 export default function App() {
-  const isMobile = useMediaQuery({ maxWidth: 1024 });
-
   return (
     <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-        {isMobile ? <Header /> : <HeaderDesktop />}
-      <Details />
-      <Footer />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
   )
