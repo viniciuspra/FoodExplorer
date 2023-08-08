@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { media } from "../../configs/breakpoints";
+import { media } from "../../../breakpoints";
 
 export const Container = styled.div`
   padding: 5rem 2.4rem 2rem;

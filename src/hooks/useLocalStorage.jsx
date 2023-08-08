@@ -12,4 +12,4 @@ export default function useLocalStorage(item) {
     value,
     updateLocalStorage
   }
-}
+};

@@ -1,8 +1,6 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
 
-export const Container = styled(Link)`
-  width: 12rem;
+export const Container = styled.button`
   background: transparent;
   border: none;
   color: ${({ theme }) => theme.COLORS.WHITE};
@@ -12,8 +10,8 @@ export const Container = styled(Link)`
   gap: 1rem;
 
   font-family: "Poppins", serif;
-  font-size: clamp(1.5rem, 1.3rem + 1vw, 3.5rem);
+  font-size: clamp(2rem, 1.5rem + 1vw, 3.5rem);
   font-weight: 500;
 
   margin: 4rem 2.4rem 0;
-`;
+` 

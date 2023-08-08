@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Container, Form } from "./styles";
 
-import { api } from "../../services/api";
-
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import LogoFoodExplorer from "../../components/LogoFoodExplorer";
 import Input from "../../components/Input";
@@ -16,37 +14,20 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate()
-
-  const handleSignUp = (e) => {
-    e.preventDefault();
-    
-    if (!name || !email || !password) {
-      return alert("Preencha todos os campos!");
+  const handleSignUp = () => {
+    if(!name || !email || !password) {
+      return alert("Preencha todos os campos!")
     }
 
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    if (!emailPattern.test(email)) {
-      return alert("Digite um E-mail valido!");
+    if(!emailPattern.test(email)) {
+      return alert("Digite um E-mail valido!")
     }
 
-    if (password.length < 6) {
-      return alert("A senha deve ter no mínimo 6 caracteres!");
+    if(password.length < 6) {
+      return alert("A senha deve ter no mínimo 6 caracteres!")
     }
-
-    api.post("/users", {name, email, password})
-      .then(() => {
-        alert("Usuário cadastrado com sucesso!");
-        navigate("/")
-      })
-      .catch(error => {
-        if(error.response) {
-          alert(error.response.data.message);
-        }else {
-          alert("Não foi possível cadastar")
-        }
-      });
   };
 
   return (
@@ -81,7 +62,7 @@ export default function SignIn() {
           />
         </label>
 
-        <Button text="Entrar" onClick={handleSignUp} />
+        <Button text="Entrar" onClick={handleSignUp}/>
 
         <Link to="/">Já tenho uma conta</Link>
       </Form>
