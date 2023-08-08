@@ -1,6 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { media } from "../../configs/breakpoints";
 
-export const Container = styled.button`
+export const Container = styled(Link)`
+  width: 12rem;
   background: transparent;
   border: none;
   color: ${({ theme }) => theme.COLORS.WHITE};
@@ -10,8 +13,15 @@ export const Container = styled.button`
   gap: 1rem;
 
   font-family: "Poppins", serif;
-  font-size: clamp(2rem, 1.5rem + 1vw, 3.5rem);
+  font-size: clamp(1.5rem, 1.3rem + 1vw, 3.5rem);
   font-weight: 500;
 
-  margin: 4rem 2.4rem 0;
-` 
+  margin: 4rem 2.8rem 0;
+
+  ${media.greaterThan('mobile')`
+    margin-left: 4rem;
+  `}
+  ${media.greaterThan('desktop')`
+    margin-left: 10rem;
+  `}
+`;

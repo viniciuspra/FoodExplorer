@@ -1,10 +1,9 @@
 import { ChevronLeft } from "lucide-react";
 import { Container } from "./styles";
 
-
-export default function BackButton() {
+export default function BackButton({...rest}) {
   return (
-    <Container>
+    <Container {...rest}>
         <ChevronLeft/> Voltar
     </Container>
   )
