@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { media } from "../../../breakpoints";
+import { media } from "../../configs/breakpoints";
 
 const slideIn = keyframes`
   from {
@@ -63,23 +63,6 @@ export const ContentWrapper = styled.div`
 
 export const InputWrapper = styled.div`
   padding: 3.6rem 0;
-`;
-
-export const ExitButton = styled.button`
-  width: 100%;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.COLORS.DARK_1000};
-
-  display: flex;
-  justify-content: baseline;
-
-  font-family: "Poppins", serif;
-  font-weight: 300;
-  font-size: 2.4rem;
-  color: ${({ theme }) => theme.COLORS.WHITE};
-
-  padding-bottom: 1rem;
 `;
 
 export const FooterWrapper = styled.div`

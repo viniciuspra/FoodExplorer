@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { media } from "../../../breakpoints";
+import { media } from "../../configs/breakpoints";
 
 export const Container = styled.footer`
   width: 100%;
@@ -19,12 +19,10 @@ export const Container = styled.footer`
 
   ${media.greaterThan("mobile")`
     padding: 1.2rem 4rem;
-    margin-top: 0;
   `}
 
   ${media.greaterThan("tablet")`
     padding: 1.2rem 10rem;
-    margin-top: 6rem;
   `}
 
   > h3 {
