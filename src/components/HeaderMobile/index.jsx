@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, MenuButton, SearchWrapper } from "./styles";
+import { Container, MenuButton, SearchWrapper, LogoWrapper } from "./styles";
 
 
 import OrderControl from "../OrderControl";
@@ -8,7 +8,7 @@ import SearchMenu from "../SearchMenu"
 import { Menu } from "lucide-react";
 import LogoFoodExplorer from "../LogoFoodExplorer";
 
-export default function HeaderMobile() {
+export default function HeaderMobile({ isAdmin, signOut }) {
   const [searchMenuOpen, setsearchMenuOpen] = useState(false);
 
   const onToggleSearchMenu = () => {
@@ -22,11 +22,13 @@ export default function HeaderMobile() {
         <MenuButton onClick={onToggleSearchMenu}>
           <Menu stroke="white" size={28}/>
         </MenuButton>
-        <LogoFoodExplorer fill="#065E7C" stroke="#065E7C" size="24"/>
-        <OrderControl />
+        <LogoWrapper>
+          <LogoFoodExplorer fill="#065E7C" stroke="#065E7C" size="24" isAdmin={isAdmin}/>
+        </LogoWrapper>
+        {!isAdmin ? <OrderControl /> : ''}
       </Container>
       ) : <SearchWrapper>
-            <SearchMenu onClose={onToggleSearchMenu}/>
+            <SearchMenu onClose={onToggleSearchMenu} isAdmin={isAdmin} signOut={signOut}/>
           </SearchWrapper> }
     </>
   );

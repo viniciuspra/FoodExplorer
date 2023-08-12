@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { media } from "../../../breakpoints";
+import { media } from "../../configs/breakpoints";
 
 export const Container = styled.header`
   background-color: ${({ theme }) => theme.COLORS.DARK_700};
@@ -17,6 +17,13 @@ export const Container = styled.header`
     cursor: pointer;
   }
 `;
+
+export const LogoWrapper = styled.div`
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 export const SearchWrapper = styled.div`
   overflow: hidden;
