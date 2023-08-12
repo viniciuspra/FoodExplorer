@@ -6,14 +6,14 @@ export const Container = styled.header`
   justify-content: center;
   background-color: ${({ theme }) => theme.COLORS.DARK_700};
   padding: 3rem 10rem;
+`;
 
-  > div {
+export const ButtonWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 3.2rem;
-  }
-`;
+`
 
 export const InputWrapper = styled.div`
   flex: 1;
