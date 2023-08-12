@@ -21,8 +21,8 @@ export default function New() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
 
-  const [ingredients, setIngredient] = useState([]);
-  const [newIngredients, setNewIngredient] = useState("");
+  const [ingredients, setIngredients] = useState([]);
+  const [newIngredient, setNewIngredient] = useState("");
 
   const navigate = useNavigate();
 
@@ -32,15 +32,15 @@ export default function New() {
   };
 
   const handleAddIngredient = () => {
-    if (newIngredients.length === 0) {
+    if (newIngredient.length === 0) {
       return alert("O campo ingredientes não pode ser vazio!");
     }
-    setIngredient((prevState) => [...prevState, newIngredients]);
+    setIngredients((prevState) => [...prevState, newIngredient]);
     setNewIngredient("");
   };
 
   const handleRemoveIngredient = (deleted) => {
-    setIngredient((prevState) => prevState.filter((item) => item !== deleted));
+    setIngredients((prevState) => prevState.filter((item) => item !== deleted));
     setNewIngredient("");
   };
 
@@ -81,9 +81,9 @@ export default function New() {
       formData.append("ingredients[]", ingredient)
     ))
 
-      await api.post("/dishes", formData)
-      alert("Prato criado com sucesso!")
-      navigate(-1)
+    await api.post("/dishes", formData)
+    alert("Prato criado com sucesso!")
+    navigate(-1)
   };
 
   return (
@@ -139,7 +139,7 @@ export default function New() {
               $isnew
               placeholder="Adicionar"
               onChange={(e) => setNewIngredient(e.target.value)}
-              value={newIngredients}
+              value={newIngredient}
               onClick={handleAddIngredient}
             />
           </div>
