@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../configs/breakpoints";
 
 export const Container = styled.div`
   width: 100%;
@@ -10,7 +11,25 @@ export const Container = styled.div`
     font-weight: 400;
     margin: 3.5rem 3.2rem 0;
   }
+  
+  > a:nth-child(2) {
+    margin: 2.4rem;
+  }
 
+  ${media.greaterThan('mobile')`
+    > a:nth-child(2) {
+      margin: 2.4rem 4rem;
+    }
+  `}
+
+  ${media.greaterThan('desktop')`
+    > h1 {
+      margin: 3.5rem 10rem 0;
+    }
+    > a:nth-child(2) {
+      margin: 2.4rem 10rem;
+    }
+  `}
 `;
 
 export const Form = styled.form`
@@ -19,7 +38,29 @@ export const Form = styled.form`
   gap: 2.4rem;
 
   margin-top: 2.4rem;
-  padding: 0 3.2rem;
+  padding: 0 2.4rem;
+
+  ${media.greaterThan('mobile')`
+    padding: 0 4rem;
+  `}
+
+  ${media.greaterThan('desktop')`
+    display: grid;
+    gap: 2.4rem;
+    margin: 2.4rem 10rem;
+    padding: 0;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "image name category"
+      "ingredients ingredients price"
+      "description description description"
+      ". . button";
+
+    > button {
+      grid-area: button;
+    }
+  `}
 
   > label {
     display: flex;
@@ -28,6 +69,32 @@ export const Form = styled.form`
 
     color: ${({ theme }) => theme.COLORS.GRAY_100};
     font-size: 1.6rem;
+
+    ${media.greaterThan('desktop')`
+      &:nth-child(1) {
+        grid-area: image;
+      }
+
+      &:nth-child(2) {
+        grid-area: name;
+      }
+
+      &:nth-child(3) {
+        grid-area: category;
+      }
+
+      &:nth-child(4) {
+        grid-area: ingredients;
+      }
+
+      &:nth-child(5) {
+        grid-area: price;
+      }
+
+      &:nth-child(6) {
+        grid-area: description;
+      }
+    `}
   }
 
   .itens {
