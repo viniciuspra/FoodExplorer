@@ -4,7 +4,7 @@ import { Container } from "./styles";
 export default function BackButton({...rest}) {
   return (
     <Container {...rest}>
-        <ChevronLeft/> Voltar
+        <ChevronLeft size={26}/> Voltar
     </Container>
   )
 }
