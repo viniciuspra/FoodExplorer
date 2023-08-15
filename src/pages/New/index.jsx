@@ -1,90 +1,113 @@
-import { Container, Form, DishImg } from "./styles";
-
-import { useState } from "react";
+// React Router DOM, React Hooks e API
 import { useNavigate } from "react-router-dom";
-
-import Input from "../../components/Input";
-import BackButton from "../../components/BackButton";
-import Header from "../../components/Header";
-import IngredientItem from "../../components/IngredientItem";
-import Footer from "../../components/Footer";
-import TextArea from "../../components/TextArea";
-import Button from "../../components/Button";
-import { Upload } from "lucide-react";
-
+import { useState } from "react";
+import { useAuth } from "../../hooks/auth";
 import { api } from "../../services/api";
 
-export default function New() {
-  const [dishFile, setDishFile] = useState("");
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState(null);
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
+// Componentes e Icon
+import Input from "../../components/Input";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import Button from "../../components/Button";
+import TextArea from "../../components/TextArea";
+import BackButton from "../../components/BackButton";
+import IngredientItem from "../../components/IngredientItem";
+import { Upload } from "lucide-react";
 
-  const [ingredients, setIngredients] = useState([]);
-  const [newIngredient, setNewIngredient] = useState("");
+// Estilos da pagina
+import { Container, Form, DishImg } from "./styles";
+
+export default function New() {
+  const { user } = useAuth();
+
+  // estado para controlar os campos do formulario
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    category: "",
+    price: "",
+    ingredients: [],
+    image_url: null,
+  });
+
+  // estado para controlar novos ingredients
+  const [newIngredient, setNewIngredient] = useState("")
 
   const navigate = useNavigate();
 
-  const handleAddFile = (event) => {
-    const file = event.target.files[0];
-    setDishFile(file);
+  // funcao para atualizar os campos do formulario
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // funcao para add um novo ingredient no array
   const handleAddIngredient = () => {
-    if (newIngredient.length === 0) {
-      return alert("O campo ingredientes não pode ser vazio!");
+    const { ingredients } = formData;
+    // verifica se o novo ingredient esta vazio e duplicado e atualiza o estado
+    if (!ingredients.includes(newIngredient) && newIngredient.trim() !== "") {
+      setFormData((prevData) => ({
+        ...prevData,
+        ingredients: [...ingredients, newIngredient],
+      }));
+      // limpa o campo do novo ingredient
+      setNewIngredient("");
     }
-    setIngredients((prevState) => [...prevState, newIngredient]);
-    setNewIngredient("");
   };
 
-  const handleRemoveIngredient = (deleted) => {
-    setIngredients((prevState) => prevState.filter((item) => item !== deleted));
-    setNewIngredient("");
+  // funcao para remover um ingredient do array
+  const handleRemoveIngredient = (ingredientToRemove) => {
+    const { ingredients } = formData;
+    // filtra o ingredient removido do array e atualiza o estado
+    const updatedIngredients = ingredients.filter(
+      (ingredient) => ingredient !== ingredientToRemove
+    )
+    setFormData((prevData) => ({
+      ...prevData,
+      ingredients: updatedIngredients,
+    }));
   };
 
+  // funcao para add um arquivo de img
+  const handleAddFile = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({...prevData, image_url: file}));
+  }
+
+  // funcao para criar um novo prato
   const handleNewDish = async (e) => {
     e.preventDefault();
-    if (!dishFile) {
-      return alert("Por favor, selecione uma imagem");
+
+    if (!user.isAdmin) {
+      return alert("Apenas administradores podem criar pratos.");
     }
 
-    if (!name) {
-      return alert("Você precisar adicionar um nome antes de salvar o prato!");
+    const { name, description, category, price, ingredients, image_url } = formData;
+    // criaçao do objeto FormData para enviar os dados
+    const newDishData = new FormData()
+    newDishData.append("name", name)
+    newDishData.append("description", description)
+    newDishData.append("category", category)
+    newDishData.append("price", price)
+    
+    ingredients.map((ingredient) => {
+      newDishData.append("ingredients[]", ingredient)
+    })
+    
+    if (image_url) {
+      newDishData.append("image_url", image_url)
     }
+    console.log(newDishData);
 
-    if (category === null) {
-      return alert("Selecione uma categoria antes de salvar o prato!");
+    // envia a requisição para o backend
+    try {
+      await api.post("/dishes", newDishData)
+      alert("Prato criado com sucesso!")
+      navigate("/")
+    } catch (error) {
+      console.log("Erro ao criar o prato");
     }
-
-    if (ingredients.length === 0) {
-      return alert("Adicione um ingrediente antes de salvar o prato!");
-    }
-
-    if (!price) {
-      return alert("Adicione um preço antes de salvar o prato!");
-    }
-
-    if (!description) {
-      return alert("Adicione uma descrição antes de salvar o prato!");
-    }
-
-    const formData = new FormData();
-    formData.append("image_url", dishFile);
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("category", category);
-    formData.append("price", price);
-
-    ingredients.map(ingredient => (
-      formData.append("ingredients[]", ingredient)
-    ))
-
-    await api.post("/dishes", formData)
-    alert("Prato criado com sucesso!")
-    navigate(-1)
-  };
+  } 
 
   return (
     <Container>
@@ -92,6 +115,7 @@ export default function New() {
       <BackButton to="/" />
       <h1>Novo Prato</h1>
       <Form>
+        {/* Campo para selecionar uma imagem */}
         <label>
           Imagem do prato
           <DishImg>
@@ -100,41 +124,45 @@ export default function New() {
             <span>Selecione uma imagem</span>
           </DishImg>
         </label>
+        {/* Campo para inserir o nome do prato */}
         <label>
           Nome
           <Input
             placeholder="Ex: Salada Ceasar"
             type="text"
-            onChange={(e) => setName(e.target.value)}
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
           />
         </label>
+        {/* Campo para selecionar a categoria do prato */}
         <label>
           Categoria
           <select
-            onChange={(e) =>
-              setCategory(e.target.value !== "null" ? e.target.value : null)
-            }
+            name="category"
+            value={formData.category}
+            onChange={handleInputChange}
           >
-            <option value="null">Selecione uma categoria</option>
-            <option value="Refeição">Refeição</option>
-            <option value="Sobremesa">Sobremesa</option>
-            <option value="Bebida">Bebida</option>
+            <option value="">Selecione uma categoria</option>
+            <option value="refeicao">Refeição</option>
+            <option value="sobremesa">Sobremesa</option>
+            <option value="bebida">Bebida</option>
           </select>
         </label>
+        {/* Campo para gerenciar ingredientes */}
         <label>
           Ingredientes
           <div className="itens">
-            {
-              ingredients.map((item, index) => {
-                return (
-                  <IngredientItem
-                    key={index}
-                    value={item}
-                    onClick={() => handleRemoveIngredient(item)}
-                  />
-                );
-              })
-            }
+            {formData.ingredients.map((ingredient, index) => {
+              return (
+                <IngredientItem
+                  key={index}
+                  value={ingredient}
+                  onClick={() => handleRemoveIngredient(ingredient)}
+                />
+              );
+            })}
+            {/* Campo para adicionar um novo ingrediente */}
             <IngredientItem
               $isnew
               placeholder="Adicionar"
@@ -144,24 +172,32 @@ export default function New() {
             />
           </div>
         </label>
+        {/* Campo para inserir o preço do prato */}
         <label>
           Preço
           <Input
             placeholder="R$ 00,00"
             type="number"
-            onChange={(e) => setPrice(e.target.value)}
+            name="price"
+            value={formData.price}
+            onChange={handleInputChange}
           />
         </label>
+        {/* Campo para inserir a descrição do prato */}
         <label>
           Descrição
           <TextArea
             placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
-            onChange={(e) => setDescription(e.target.value)}
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
           />
         </label>
+        {/* Botão para salvar as alterações */}
         <Button text="Salvar Alterações" onClick={handleNewDish} />
       </Form>
       <Footer />
     </Container>
   );
+  
 }
