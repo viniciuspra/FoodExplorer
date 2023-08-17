@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/auth";
 import { api } from "../../services/api";
 
 import Input from "../../components/Input";
@@ -16,12 +15,11 @@ import { Container, Form, DishImg, ButtonWrapper } from "./styles";
 
 export default function Edit() {
   const { id } = useParams();
-  const { user } = useAuth();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
-  
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -29,36 +27,30 @@ export default function Edit() {
 
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
-  
-  const [data, setData] = useState(null);
-  
-  const [image, setImage] = useState();
-  const [imageFile, setImageFile] = useState(null)
 
-  function handleAddFile(event) {
-    const file = event.target.files[0];
+  const [imageFile, setImageFile] = useState(null);
+
+  function handleAddFile(e) {
+    const file = e.target.files[0];
     setImageFile(file);
-
-    const imagePreview = URL.createObjectURL(file);
-    setImage(imagePreview);
   }
 
   function handleAddIngredient() {
     if (newIngredient.trim() === "") {
       return;
     }
-      setIngredients(prevState => [...prevState, newIngredient]);
-      setNewIngredient("");
+    setIngredients((prevState) => [...prevState, newIngredient]);
+    setNewIngredient("");
   }
 
-  function handleRemoveIngredient(deleted){
+  function handleRemoveIngredient(deleted) {
     setIngredients((prevIngredients) =>
       prevIngredients.filter((ingredient) => ingredient !== deleted)
     );
   }
 
   async function handleUpdateDish(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     setLoading(true);
 
@@ -69,10 +61,8 @@ export default function Edit() {
     if (description) formData.append("description", description);
     if (category) formData.append("category", category);
     if (price) formData.append("price", price);
-    
-    ingredients.map(ingredient => (
-        formData.append("ingredients", ingredient)
-    ))
+
+    ingredients.map((ingredient) => formData.append("ingredients", ingredient));
 
     try {
       await api.put(`/dishes/${id}`, formData);
@@ -90,34 +80,47 @@ export default function Edit() {
   }
 
   useEffect(() => {
-      async function fetchDish() {
-          const response = await api.get(`/dishes/${id}`);
-          setData(response.data);
-          
-          const { name, description, category, price, ingredients } = response.data;
-          setName(name);
-          setDescription(description);
-          setCategory(category);
-          setPrice(price);
-          setIngredients(ingredients.map(ingredient => ingredient.name));
-      }
+    async function fetchDish() {
+      try {
+        const response = await api.get(`/dishes/${id}`);
   
-      fetchDish();
-  }, [])
+        const { name, description, category, price, ingredients } = response.data;
+        setName(name);
+        setDescription(description);
+        setCategory(category);
+        setPrice(price);
+        setIngredients(ingredients.map((ingredient) => ingredient.name));
+      } catch (error) {
+        if (error.response) {
+          alert(error.response.data.message);
+        } else {
+          alert("Erro ao buscar o prato!");
+        }
+      }
+    }
+
+    fetchDish();
+  }, []);
 
   async function handleDeleteDish() {
     setLoadingDelete(true);
     const isConfirm = confirm("Tem certeza que deseja remover este item?");
-    if(isConfirm) {
-        await api.delete(`/dishes/${id}`)
-        .then(() => {
-            alert("Prato removido com sucesso!");
-            navigate("/");
-            setLoadingDelete(false);
-        })
-    } else {
-        return
+
+    if (isConfirm) {
+      try {
+        await api.delete(`/dishes/${id}`);
+        alert("Prato removido com sucesso!");
+        navigate("/");
+      } catch (error) {
+        if (error.response) {
+          alert(error.response.data.message);
+        } else {
+          alert("Erro ao remover o prato!");
+        }
+      }
     }
+
+    setLoadingDelete(false);
   }
 
   return (
@@ -196,8 +199,17 @@ export default function Edit() {
           />
         </label>
         <ButtonWrapper>
-          <Button text="Excluir prato" $isblack onClick={handleDeleteDish} />
-          <Button text="Salvar Alterações" onClick={handleUpdateDish} />
+          <Button
+            text="Excluir prato"
+            $isblack
+            onClick={handleDeleteDish}
+            loading={loadingDelete}
+          />
+          <Button
+            text="Salvar Alterações"
+            onClick={handleUpdateDish}
+            loading={loading}
+          />
         </ButtonWrapper>
       </Form>
       <Footer />

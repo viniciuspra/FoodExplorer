@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container, Form } from "./styles";
 
 import { api } from "../../services/api";
+import { useMediaQuery } from "react-responsive";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -15,6 +16,8 @@ export default function SignIn() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const isMobile = useMediaQuery({ maxWidth: 1024 });
 
   const navigate = useNavigate()
 
@@ -53,6 +56,7 @@ export default function SignIn() {
     <Container>
       <LogoFoodExplorer fill="#065E7C" stroke="#065E7C" size="24" />
       <Form>
+        { !isMobile ? <h1>Crie sua conta</h1> : ''}
         <label>
           <span>Seu Nome</span>
           <Input
@@ -65,7 +69,7 @@ export default function SignIn() {
         <label>
           <span>E-mail</span>
           <Input
-            placeholder="exemplo@exemplo.com.br"
+            placeholder="exemplo@exemplo.com"
             type="text"
             icon={Mail}
             onChange={(e) => setEmail(e.target.value)}
@@ -81,7 +85,7 @@ export default function SignIn() {
           />
         </label>
 
-        <Button text="Entrar" onClick={handleSignUp} />
+        <Button text="Criar conta" onClick={handleSignUp} />
 
         <Link to="/">Já tenho uma conta</Link>
       </Form>

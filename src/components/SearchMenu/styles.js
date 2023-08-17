@@ -55,14 +55,19 @@ export const ContentWrapper = styled.div`
   flex: 1;
   padding: 1rem 2.8rem;
   ${media.greaterThan("mobile")`
-    padding: 5.6rem 4rem 2.4rem;
+    padding: 3.6rem 4rem 2.4rem;
   `}
 
   overflow-y: auto;
 `;
 
 export const InputWrapper = styled.div`
-  padding: 3.6rem 0;
+  padding: 3.6rem 0 ;
+
+  ${media.greaterThan('mobile')`
+    padding: 0;
+    margin-bottom: 3.6rem;
+  `}
 `;
 
 export const FooterWrapper = styled.div`

@@ -1,24 +1,30 @@
 import {
   Container,
-  ExitButton,
   InputWrapper,
   CloseButton,
   CloseButtonWrapper,
   ContentWrapper,
-  FooterWrapper
+  FooterWrapper,
 } from "./styles";
 
-import Footer from "../Footer"
+import Footer from "../Footer";
 
 import InputSearch from "../InputSearch";
 import { X } from "lucide-react";
+import TextButton from "../TextButton";
 
-export default function SearchMenu({ onClose }) {
+export default function SearchMenu({
+  onClose,
+  isAdmin,
+  signOut,
+  search,
+  setSearch,
+}) {
   return (
     <Container>
       <CloseButtonWrapper>
         <CloseButton onClick={onClose}>
-          <X size={28}/> Menu
+          <X size={28} /> Menu
         </CloseButton>
       </CloseButtonWrapper>
       <ContentWrapper>
@@ -26,10 +32,13 @@ export default function SearchMenu({ onClose }) {
           <InputSearch
             type="text"
             placeholder="Busque por pratos ou ingredientes"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </InputWrapper>
-        
-        <ExitButton>Sair</ExitButton>
+
+        {isAdmin ? <TextButton title="Novo Prato" to="/new" /> : ""}
+        <TextButton title="Sair" onClick={signOut} />
       </ContentWrapper>
       <FooterWrapper>
         <Footer />

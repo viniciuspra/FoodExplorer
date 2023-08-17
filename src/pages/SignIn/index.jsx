@@ -2,6 +2,7 @@ import { Container, Form } from "./styles";
 
 import { useState } from "react";
 import { useAuth } from "../../hooks/auth";
+import { useMediaQuery } from "react-responsive";
 
 import { Link } from "react-router-dom";
 
@@ -17,6 +18,8 @@ export default function SignIn() {
 
   const { signIn } = useAuth();
 
+  const isMobile = useMediaQuery({ maxWidth: 1024 });
+
   function handleSignIn(e) {
     e.preventDefault()
     signIn({ email, password });
@@ -26,10 +29,11 @@ export default function SignIn() {
     <Container>
       <LogoFoodExplorer fill="#065E7C" stroke="#065E7C" size="24" />
       <Form>
+        { !isMobile ? <h1>Faça login</h1> : ''}
         <label>
           <span>E-mail</span>
           <Input
-            placeholder="exemplo@exemplo.com.br"
+            placeholder="exemplo@exemplo.com"
             type="text"
             icon={Mail}
             onChange={(e) => setEmail(e.target.value)}

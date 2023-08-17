@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { media } from "../../configs/breakpoints";
 
 export const Container = styled.div`
-  height: 100vh;
+  height: 80vh;
 
   > a:nth-child(2) {
     margin: 2.4rem 2.4rem 0;
@@ -11,7 +11,7 @@ export const Container = styled.div`
       margin: 2.8rem 4rem 0;
     `}
     ${media.greaterThan("desktop")`
-      margin: 2.8rem 10rem -5rem;
+      margin: 2.8rem 10rem;
     `}
   }
 `;

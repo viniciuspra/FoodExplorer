@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../configs/breakpoints";
 
 export const Container = styled.div`
   width: 100%;
@@ -8,8 +9,29 @@ export const Container = styled.div`
     font-family: "Poppins", serif;
     font-size: 3.2rem;
     font-weight: 400;
-    margin: 3.5rem 3.2rem 0;
+    margin: 2.4rem 2.8rem 0;
   }
+
+  > a:nth-child(2) {
+    margin: 2.8rem;
+  }
+
+  ${media.greaterThan('mobile')`
+    > h1 {
+      margin: 2.4rem 4rem;
+    }
+    > a:nth-child(2) {
+      margin: 2.4rem 4rem;
+    }
+  `}
+  ${media.greaterThan('desktop')`
+    > h1 {
+      margin: 2.8rem 10rem;
+    }
+    > a:nth-child(2) {
+      margin: 2.8rem 10rem;
+    }
+  `}
 
 `;
 
@@ -28,6 +50,31 @@ export const Form = styled.form`
 
     color: ${({ theme }) => theme.COLORS.GRAY_100};
     font-size: 1.6rem;
+    ${media.greaterThan('desktop')`
+      &:nth-child(1) {
+        grid-area: image;
+      }
+
+      &:nth-child(2) {
+        grid-area: name;
+      }
+
+      &:nth-child(3) {
+        grid-area: category;
+      }
+
+      &:nth-child(4) {
+        grid-area: ingredients;
+      }
+
+      &:nth-child(5) {
+        grid-area: price;
+      }
+
+      &:nth-child(6) {
+        grid-area: description;
+      }
+    `}
   }
 
   .itens {
@@ -58,6 +105,26 @@ export const Form = styled.form`
 
     padding: 0 0.5rem;
   }
+
+  ${media.greaterThan('mobile')`
+    margin: 2.4rem 4rem 0;
+    padding: 0;
+  `}
+  
+  ${media.greaterThan('desktop')`
+    display: grid;
+    gap: 2.4rem;
+    margin: 2.4rem 10rem;
+    padding: 0;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "image name category"
+      "ingredients ingredients price"
+      "description description description"
+      ". button button";
+  `}
+
 `;
 
 export const DishImg = styled.div`
@@ -94,4 +161,8 @@ export const ButtonWrapper = styled.div`
   height: 4rem;
   display: flex;
   gap: 1rem;
+
+  ${media.greaterThan('desktop')`
+    grid-area: button;
+  `}
 `
