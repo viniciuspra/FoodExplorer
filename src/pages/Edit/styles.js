@@ -138,7 +138,7 @@ export const DishImg = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1.2rem 2rem;
+  padding: 0.5rem 2rem;
   
   cursor: pointer;
 
@@ -165,4 +165,35 @@ export const ButtonWrapper = styled.div`
   ${media.greaterThan('desktop')`
     grid-area: button;
   `}
+`
+
+export const ImagePreview = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1.2rem;
+
+  > input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: none;
+  }
+
+  > span {
+    flex: 1;
+  }
+
+  > img {
+    width: 7rem;
+
+    &:hover {
+      opacity: 0.8;
+      transition: 200ms;
+    }
+  }
 `

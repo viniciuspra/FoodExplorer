@@ -137,8 +137,8 @@ export const DishImg = styled.div`
   
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 1.2rem 3rem;
+  gap: 1rem;
+  padding: 1.2rem 1rem 1.2rem 2rem;
   
   cursor: pointer;
 
@@ -154,5 +154,35 @@ export const DishImg = styled.div`
 
   > span {
     flex: 1;
+  }
+`
+
+export const ImagePreview = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  > input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: none;
+  }
+
+  > span {
+    flex: 1;
+  }
+
+  > img {
+    width: 7rem;
+
+    &:hover {
+      opacity: 0.8;
+      transition: 200ms;
+    }
   }
 `

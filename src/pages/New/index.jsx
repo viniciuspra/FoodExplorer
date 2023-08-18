@@ -12,10 +12,10 @@ import Button from "../../components/Button";
 import TextArea from "../../components/TextArea";
 import BackButton from "../../components/BackButton";
 import IngredientItem from "../../components/IngredientItem";
-import { Upload } from "lucide-react";
+import { Check, Upload, X } from "lucide-react";
 
 // Estilos da pagina
-import { Container, Form, DishImg } from "./styles";
+import { Container, Form, DishImg, ImagePreview } from "./styles";
 
 export default function New() {
   const { user } = useAuth();
@@ -30,8 +30,9 @@ export default function New() {
     image_url: null,
   });
 
-  // estado para controlar novos ingredients
-  const [newIngredient, setNewIngredient] = useState("")
+  const [newIngredient, setNewIngredient] = useState("");
+
+  const [imagePreview, setImagePreview] = useState(null);
 
   const navigate = useNavigate();
 
@@ -61,7 +62,7 @@ export default function New() {
     // filtra o ingredient removido do array e atualiza o estado
     const updatedIngredients = ingredients.filter(
       (ingredient) => ingredient !== ingredientToRemove
-    )
+    );
     setFormData((prevData) => ({
       ...prevData,
       ingredients: updatedIngredients,
@@ -71,7 +72,14 @@ export default function New() {
   // funcao para add um arquivo de img
   const handleAddFile = (e) => {
     const file = e.target.files[0];
-    setFormData((prevData) => ({...prevData, image_url: file}));
+    setImagePreview(URL.createObjectURL(file));
+    setFormData((prevData) => ({ ...prevData, image_url: file }));
+  };
+
+  // funcao para remover o arquivo de img selecionado
+  const handleRemoveFile = () => {
+    setImagePreview(null);
+    setFormData((prevData) => ({...prevData, image_url: null }));
   }
 
   // funcao para criar um novo prato
@@ -82,32 +90,33 @@ export default function New() {
       return alert("Apenas administradores podem criar pratos.");
     }
 
-    const { name, description, category, price, ingredients, image_url } = formData;
+    const { name, description, category, price, ingredients, image_url } =
+      formData;
     // criaçao do objeto FormData para enviar os dados
-    const newDishData = new FormData()
-    newDishData.append("name", name)
-    newDishData.append("description", description)
-    newDishData.append("category", category)
-    newDishData.append("price", price)
-    
+    const newDishData = new FormData();
+    newDishData.append("name", name);
+    newDishData.append("description", description);
+    newDishData.append("category", category);
+    newDishData.append("price", price);
+
     ingredients.map((ingredient) => {
-      newDishData.append("ingredients[]", ingredient)
-    })
-    
+      newDishData.append("ingredients[]", ingredient);
+    });
+
     if (image_url) {
-      newDishData.append("image_url", image_url)
+      newDishData.append("image_url", image_url);
     }
     console.log(newDishData);
 
     // envia a requisição para o backend
     try {
-      await api.post("/dishes", newDishData)
-      alert("Prato criado com sucesso!")
-      navigate("/")
+      await api.post("/dishes", newDishData);
+      alert("Prato criado com sucesso!");
+      navigate("/");
     } catch (error) {
       console.log("Erro ao criar o prato");
     }
-  } 
+  };
 
   return (
     <Container>
@@ -119,9 +128,21 @@ export default function New() {
         <label>
           Imagem do prato
           <DishImg>
-            <Upload size={24} stroke="white" />
-            <input type="file" onChange={handleAddFile} />
-            <span>Selecione uma imagem</span>
+            {imagePreview ? (
+              <ImagePreview>
+                <Check size={24} stroke="white"/>
+                <input type="file" onChange={handleAddFile} />
+                <span>Imagem selecionada</span>
+                <img src={imagePreview} alt="Imagem do Prato" />
+                <X onClick={handleRemoveFile}/>
+              </ImagePreview>
+            ) : (
+              <>
+                <Upload size={24} stroke="white" />
+                <input type="file" onChange={handleAddFile} />
+                <span>Selecione uma imagem</span>
+              </>
+            )}
           </DishImg>
         </label>
         {/* Campo para inserir o nome do prato */}
@@ -194,10 +215,9 @@ export default function New() {
           />
         </label>
         {/* Botão para salvar as alterações */}
-        <Button text="Salvar Alterações" onClick={handleNewDish} />
+        <Button text="Criar Prato" onClick={handleNewDish} />
       </Form>
       <Footer />
     </Container>
   );
-  
 }

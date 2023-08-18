@@ -9,9 +9,9 @@ import Button from "../../components/Button";
 import TextArea from "../../components/TextArea";
 import BackButton from "../../components/BackButton";
 import IngredientItem from "../../components/IngredientItem";
-import { Upload } from "lucide-react";
+import { Check } from "lucide-react";
 
-import { Container, Form, DishImg, ButtonWrapper } from "./styles";
+import { Container, Form, DishImg, ButtonWrapper, ImagePreview } from "./styles";
 
 export default function Edit() {
   const { id } = useParams();
@@ -29,13 +29,15 @@ export default function Edit() {
   const [newIngredient, setNewIngredient] = useState("");
 
   const [imageFile, setImageFile] = useState(null);
-
-  function handleAddFile(e) {
+  const [imagePreview, setImagePreview] = useState(null);
+  
+  const handleAddFile = (e) => {
     const file = e.target.files[0];
+    setImagePreview(URL.createObjectURL(file));
     setImageFile(file);
   }
 
-  function handleAddIngredient() {
+  const handleAddIngredient = () => {
     if (newIngredient.trim() === "") {
       return;
     }
@@ -43,13 +45,13 @@ export default function Edit() {
     setNewIngredient("");
   }
 
-  function handleRemoveIngredient(deleted) {
+  const handleRemoveIngredient = (deleted) => {
     setIngredients((prevIngredients) =>
       prevIngredients.filter((ingredient) => ingredient !== deleted)
     );
   }
 
-  async function handleUpdateDish(e) {
+  const handleUpdateDish= async (e) => {
     e.preventDefault();
 
     setLoading(true);
@@ -84,12 +86,13 @@ export default function Edit() {
       try {
         const response = await api.get(`/dishes/${id}`);
   
-        const { name, description, category, price, ingredients } = response.data;
+        const { name, description, category, price, ingredients, image_url } = response.data;
         setName(name);
         setDescription(description);
         setCategory(category);
         setPrice(price);
         setIngredients(ingredients.map((ingredient) => ingredient.name));
+        setImagePreview(`${api.defaults.baseURL}/files/${image_url}`);
       } catch (error) {
         if (error.response) {
           alert(error.response.data.message);
@@ -102,7 +105,7 @@ export default function Edit() {
     fetchDish();
   }, []);
 
-  async function handleDeleteDish() {
+  const handleDeleteDish = async () => {
     setLoadingDelete(true);
     const isConfirm = confirm("Tem certeza que deseja remover este item?");
 
@@ -132,9 +135,15 @@ export default function Edit() {
         <label>
           Imagem do prato
           <DishImg>
-            <Upload size={24} stroke="white" />
-            <input type="file" onChange={handleAddFile} />
-            <span>Selecione uma imagem</span>
+            {
+              imagePreview &&
+                <ImagePreview>
+                  <Check size={24} stroke="white"/>
+                  <input type="file" onChange={handleAddFile} />
+                  <span>Imagem selecionada</span>
+                  <img src={imagePreview} alt="Imagem do Prato" />
+                </ImagePreview>
+            }
           </DishImg>
         </label>
         <label>
