@@ -15,7 +15,7 @@ export const PrevArrowButton = styled.button`
 export const NextArrowButton = styled.button`
   position: absolute;
   top: 50%;
-  right: 27rem;
+  right: -5rem;
   transform: translateY(-50%);
   cursor: pointer;
   z-index: 1;
