@@ -15,7 +15,7 @@ export const Container = styled.div`
         position: absolute;
         width: 50%;
         height: 100%;
-        background: linear-gradient(270deg, transparent, rgba(0, 10, 15, 0.4));
+        background: linear-gradient(270deg, transparent, rgba(0, 10, 15, 0.7));
         top: 0;
         left: 0rem;
         pointer-events: none;
@@ -36,7 +36,7 @@ export const Container = styled.div`
     }
   `}
   ${media.greaterThan('desktop')`
-    margin: 2.4rem -25rem 0 10rem;
+    margin: 2.4rem 10rem;
   `}
 
   > h2 {
