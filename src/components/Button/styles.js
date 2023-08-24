@@ -25,7 +25,7 @@ export const Container = styled.button`
   }
 
   &:disabled {
-    background-color: ${({ theme }) => theme.COLORS.TOMATO_400};
+    background-color: ${({ theme, $isblack }) => $isblack ? theme.COLORS.DARK_900 : theme.COLORS.TOMATO_400};
     pointer-events: none;
     cursor: not-allowed;
   }
