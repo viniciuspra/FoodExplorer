@@ -17,7 +17,7 @@ export const Container = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  height: 100%;
+  height: 100vh;
   margin: 2.4rem;
   display: flex;
   flex-direction: column;
@@ -33,6 +33,7 @@ export const ContentWrapper = styled.div`
   ${media.greaterThan("mobile")`
     margin: 2.4rem 4rem;
   `}
+
   ${media.greaterThan("desktop")`
     width: clamp(90rem, 1vw, 120rem);
     flex-direction: row;
@@ -40,7 +41,7 @@ export const ContentWrapper = styled.div`
     align-items: center;
     margin: auto;
     > img {
-      width: clamp(35rem, 5vw, 40rem);
+      width: 40rem;
       margin: auto 0;
     }
 
@@ -64,15 +65,15 @@ export const ContentWrapper = styled.div`
     }
   `}
 
-
   > img {
-    max-width: 35rem;
+    max-width: 25rem;
   }
 
   h3 {
     font-size: 2.7rem;
     font-weight: 500;
   }
+
   p {
     font-size: 1.4rem;
     font-weight: 400;
@@ -99,14 +100,15 @@ export const ContentWrapper = styled.div`
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 3rem;
-  max-width: 30rem;
-  margin: auto;
-  margin-top: 2.4rem;
+  gap: 0.5rem;
+  margin: 0 1rem;
 
   ${media.greaterThan("desktop")`
-    width: 100%;
-    margin: 2.4rem;
+    max-width: 100rem;
+    flex-direction: row;
+    justify-content: center;
+    margin: 2.4rem 0;
   `}
 `;

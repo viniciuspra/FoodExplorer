@@ -20,11 +20,19 @@ export default function Details() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const formattedPrice = totalPrice.toFixed(2).replace(".", ",");
+
   const navigate = useNavigate();
 
   const navigateEditPage = () => {
     navigate(`/edit/${id}`);
   };
+
+  const handleCountChange = (newCount) => {
+    setTotalPrice(newCount * (data ? data.price : 0));
+  }
 
   useEffect(() => {
     async function fetchDish() {
@@ -66,13 +74,15 @@ export default function Details() {
                   ))}
               </ul>
               <ButtonWrapper>
-                {!user.isAdmin ? <Counter /> : ""}
                 {!user.isAdmin ? (
-                  <Button
-                    icon={Receipt}
-                    text="pedir"
-                    value={`R$${data.price}`}
-                  />
+                  <>
+                    <Counter onCountChange={handleCountChange}/>
+                    <Button
+                      icon={Receipt}
+                      text="pedir"
+                      value={`R$${formattedPrice}`}
+                    />
+                  </>
                 ) : (
                   <Button text="Editar prato" onClick={navigateEditPage} />
                 )}
