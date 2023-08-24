@@ -1,8 +1,10 @@
 // React Router DOM, React Hooks e API
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 import { api } from "../../services/api";
+
+import CurrencyInput from "react-currency-input-field";
 
 // Componentes e Icon
 import Input from "../../components/Input";
@@ -20,7 +22,7 @@ import { Container, Form, DishImg, ImagePreview } from "./styles";
 export default function New() {
   const { user } = useAuth();
 
-  // estado para controlar os campos do formulario
+  // Estado para armazenar os dados do formulário
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -39,7 +41,9 @@ export default function New() {
   // funcao para atualizar os campos do formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    const formattedValue =
+      name === "price" ? value.replace(/[^\d,]/g, "") : value;
+    setFormData((prevData) => ({ ...prevData, [name]: formattedValue }));
   };
 
   // funcao para add um novo ingredient no array
@@ -79,8 +83,8 @@ export default function New() {
   // funcao para remover o arquivo de img selecionado
   const handleRemoveFile = () => {
     setImagePreview(null);
-    setFormData((prevData) => ({...prevData, image_url: null }));
-  }
+    setFormData((prevData) => ({ ...prevData, image_url: null }));
+  };
 
   // funcao para criar um novo prato
   const handleNewDish = async (e) => {
@@ -92,12 +96,15 @@ export default function New() {
 
     const { name, description, category, price, ingredients, image_url } =
       formData;
+
+    const formattedPrice = price.replace(",", ".");
+
     // criaçao do objeto FormData para enviar os dados
     const newDishData = new FormData();
     newDishData.append("name", name);
     newDishData.append("description", description);
     newDishData.append("category", category);
-    newDishData.append("price", price);
+    newDishData.append("price", parseFloat(formattedPrice));
 
     ingredients.map((ingredient) => {
       newDishData.append("ingredients[]", ingredient);
@@ -106,7 +113,6 @@ export default function New() {
     if (image_url) {
       newDishData.append("image_url", image_url);
     }
-    console.log(newDishData);
 
     // envia a requisição para o backend
     try {
@@ -130,11 +136,11 @@ export default function New() {
           <DishImg>
             {imagePreview ? (
               <ImagePreview>
-                <Check size={24} stroke="white"/>
+                <Check size={24} stroke="white" />
                 <input type="file" onChange={handleAddFile} />
                 <span>Imagem selecionada</span>
                 <img src={imagePreview} alt="Imagem do Prato" />
-                <X onClick={handleRemoveFile}/>
+                <X onClick={handleRemoveFile} />
               </ImagePreview>
             ) : (
               <>
@@ -174,21 +180,25 @@ export default function New() {
         <label>
           Ingredientes
           <div className="itens">
-            {formData.ingredients.map((ingredient, index) => {
-              return (
-                <IngredientItem
-                  key={index}
-                  value={ingredient}
-                  onClick={() => handleRemoveIngredient(ingredient)}
-                />
-              );
-            })}
+            {formData.ingredients.map((ingredient, index) => (
+              <IngredientItem
+                key={index}
+                value={ingredient}
+                onClick={() => handleRemoveIngredient(ingredient)}
+              />
+            ))}
             {/* Campo para adicionar um novo ingrediente */}
             <IngredientItem
               $isnew
               placeholder="Adicionar"
               onChange={(e) => setNewIngredient(e.target.value)}
               value={newIngredient}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleAddIngredient();
+                }
+              }}
               onClick={handleAddIngredient}
             />
           </div>
@@ -196,12 +206,13 @@ export default function New() {
         {/* Campo para inserir o preço do prato */}
         <label>
           Preço
-          <Input
+          <CurrencyInput
             placeholder="R$ 00,00"
-            type="number"
-            name="price"
-            value={formData.price}
+            prefix="R$ "
+            decimalsLimit={2}
             onChange={handleInputChange}
+            className="input-currency"
+            name="price"
           />
         </label>
         {/* Campo para inserir a descrição do prato */}

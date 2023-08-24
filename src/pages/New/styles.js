@@ -95,6 +95,26 @@ export const Form = styled.form`
         grid-area: description;
       }
     `}
+    
+    .input-currency {
+      background-color: ${({ theme }) => theme.COLORS.DARK_900};
+      color: ${({ theme }) => theme.COLORS.WHITE};
+
+      width: 100%;
+      height: 4rem;
+      padding: 0 1rem;
+
+      border-radius: 0.6rem;
+      border: 0;
+
+      font-size: 1.4rem;
+      outline: none;
+
+      &::placeholder {
+        color: ${({ theme }) => theme.COLORS.GRAY_200};
+      }
+    }
+
   }
 
   .itens {

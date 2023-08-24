@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 
+import CurrencyInput from "react-currency-input-field";
+
 import Input from "../../components/Input";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -11,63 +13,94 @@ import BackButton from "../../components/BackButton";
 import IngredientItem from "../../components/IngredientItem";
 import { Check } from "lucide-react";
 
-import { Container, Form, DishImg, ButtonWrapper, ImagePreview } from "./styles";
+import {
+  Container,
+  Form,
+  DishImg,
+  ButtonWrapper,
+  ImagePreview,
+} from "./styles";
 
 export default function Edit() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // Estado para lidar com carregamento
   const [loading, setLoading] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
+  // Estado para armazenar os dados do formulário
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    price: "",
+    category: "",
+    ingredients: [],
+    image_url: null,
+  });
 
-  const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
 
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  
+
+  // funcao para atualizar os campos do formulario
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const formattedValue = name === "price" ? value.replace(/[^\d,]/g, "") : value;
+    setFormData((prevData) => ({ ...prevData, [name]: formattedValue }));
+  };
+
   const handleAddFile = (e) => {
     const file = e.target.files[0];
     setImagePreview(URL.createObjectURL(file));
     setImageFile(file);
-  }
+  };
 
   const handleAddIngredient = () => {
     if (newIngredient.trim() === "") {
       return;
     }
-    setIngredients((prevState) => [...prevState, newIngredient]);
+    setFormData((prevData) => ({
+      ...prevData,
+      ingredients: [...prevData.ingredients, newIngredient],
+    }));
     setNewIngredient("");
-  }
+  };
 
   const handleRemoveIngredient = (deleted) => {
-    setIngredients((prevIngredients) =>
-      prevIngredients.filter((ingredient) => ingredient !== deleted)
-    );
-  }
+    setFormData((prevData) => ({
+      ...prevData,
+      ingredients: prevData.ingredients.filter(
+        (ingredient) => ingredient !== deleted
+      ),
+    }));
+  };
 
-  const handleUpdateDish= async (e) => {
+  const handleUpdateDish = async (e) => {
     e.preventDefault();
-
     setLoading(true);
 
-    const formData = new FormData();
+    const updatedFormData = { ...formData };
+    const requestData = new FormData();
 
-    if (imageFile) formData.append("image_url", imageFile);
-    if (name) formData.append("name", name);
-    if (description) formData.append("description", description);
-    if (category) formData.append("category", category);
-    if (price) formData.append("price", price);
+    const formattedPrice = updatedFormData.price.replace(",", ".");
 
-    ingredients.map((ingredient) => formData.append("ingredients", ingredient));
+    requestData.append("name", updatedFormData.name);
+    requestData.append("description", updatedFormData.description);
+    requestData.append("category", updatedFormData.category);
+    requestData.append("price", parseFloat(formattedPrice));
+
+    updatedFormData.ingredients.forEach((ingredient) => {
+      requestData.append("ingredients[]", ingredient);
+    });
+
+    if (imageFile) {
+      requestData.append("image_url", imageFile);
+    }
 
     try {
-      await api.put(`/dishes/${id}`, formData);
+      await api.put(`/dishes/${id}`, requestData);
       alert("Prato atualizado com sucesso!");
       navigate("/");
     } catch (error) {
@@ -79,20 +112,27 @@ export default function Edit() {
     }
 
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
     async function fetchDish() {
       try {
         const response = await api.get(`/dishes/${id}`);
-  
-        const { name, description, category, price, ingredients, image_url } = response.data;
-        setName(name);
-        setDescription(description);
-        setCategory(category);
-        setPrice(price);
-        setIngredients(ingredients.map((ingredient) => ingredient.name));
-        setImagePreview(`${api.defaults.baseURL}/files/${image_url}`);
+
+        const { name, description, category, price, ingredients, image_url } =
+          response.data;
+        setFormData({
+          name,
+          description,
+          category,
+          price: parseFloat(price),
+          ingredients: ingredients.map((ingredient) => ingredient.name),
+          image_url,
+        });
+
+        if (!imageFile) {
+          setImagePreview(`${api.defaults.baseURL}/files/${image_url}`);
+        }
       } catch (error) {
         if (error.response) {
           alert(error.response.data.message);
@@ -103,7 +143,7 @@ export default function Edit() {
     }
 
     fetchDish();
-  }, []);
+  }, [id, imageFile]);
 
   const handleDeleteDish = async () => {
     setLoadingDelete(true);
@@ -124,7 +164,7 @@ export default function Edit() {
     }
 
     setLoadingDelete(false);
-  }
+  };
 
   return (
     <Container>
@@ -135,15 +175,14 @@ export default function Edit() {
         <label>
           Imagem do prato
           <DishImg>
-            {
-              imagePreview &&
-                <ImagePreview>
-                  <Check size={24} stroke="white"/>
-                  <input type="file" onChange={handleAddFile} />
-                  <span>Imagem selecionada</span>
-                  <img src={imagePreview} alt="Imagem do Prato" />
-                </ImagePreview>
-            }
+            {imagePreview && (
+              <ImagePreview>
+                <Check size={24} stroke="white" />
+                <input type="file" onChange={handleAddFile} />
+                <span>Imagem selecionada</span>
+                <img src={imagePreview} alt="Imagem do Prato" />
+              </ImagePreview>
+            )}
           </DishImg>
         </label>
         <label>
@@ -152,16 +191,16 @@ export default function Edit() {
             placeholder="Ex: Salada Ceasar"
             type="text"
             name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={formData.name}
+            onChange={handleInputChange}
           />
         </label>
         <label>
           Categoria
           <select
             name="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            value={formData.category}
+            onChange={handleInputChange}
           >
             <option value="">Selecione uma categoria</option>
             <option value="refeicao">Refeição</option>
@@ -172,7 +211,7 @@ export default function Edit() {
         <label>
           Ingredientes
           <div className="itens">
-            {ingredients.map((ingredient, index) => (
+            {formData.ingredients.map((ingredient, index) => (
               <IngredientItem
                 key={index}
                 value={ingredient}
@@ -184,18 +223,26 @@ export default function Edit() {
               placeholder="Adicionar"
               onChange={(e) => setNewIngredient(e.target.value)}
               value={newIngredient}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleAddIngredient();
+                }
+              }}
               onClick={handleAddIngredient}
             />
           </div>
         </label>
         <label>
           Preço
-          <Input
+          <CurrencyInput 
             placeholder="R$ 00,00"
-            type="number"
+            prefix="R$ "
+            decimalsLimit={2}
+            value={formData.price}
+            onChange={handleInputChange}
+            className="input-currency"
             name="price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
           />
         </label>
         <label>
@@ -203,8 +250,8 @@ export default function Edit() {
           <TextArea
             placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
             name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={formData.description}
+            onChange={handleInputChange}
           />
         </label>
         <ButtonWrapper>
