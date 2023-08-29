@@ -26,7 +26,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 export default function Header({ search, setSearch }) {
   const { user, signOut } = useAuth();
 
-  const isMobile = useMediaQuery({ maxWidth: 1024 });
+  const isMobile = useMediaQuery({ maxWidth: 1280 });
 
   const navigate = useNavigate();
 
