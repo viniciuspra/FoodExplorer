@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 
@@ -6,9 +6,11 @@ import { Container, ContentWrapper, LinkWrapper, Paragraph } from "./styles";
 import { ChevronRight, Heart, Pencil } from "lucide-react";
 import Counter from "../Counter";
 import Button from "../Button";
+import { useFavoritesContext } from "../../hooks/favorites";
 
 export default function DishCard({ id, title, image_url, price, description, isAdmin }) {
-  const [isLiked, setIsLiked] = useState(false);
+  const { favorites, updateFavorite } = useFavoritesContext()
+  const [isLiked, setIsLiked] = useState(favorites.includes(id));
   const isMobile = useMediaQuery({ maxWidth: 1024 });
 
   const [totalPrice, setTotalPrice] = useState(0)
@@ -19,8 +21,13 @@ export default function DishCard({ id, title, image_url, price, description, isA
     setTotalPrice(newCount * price);
   }
 
+  useEffect(() => {
+    setIsLiked(favorites.includes(id))
+  }, [favorites, id])
+
   const handleHeartClick = () => {
     setIsLiked((prevIsLiked) => !prevIsLiked);
+    updateFavorite(id)
   };
 
   const truncateDescription = (text, maxLength) => {
