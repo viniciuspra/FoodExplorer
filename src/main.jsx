@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { ThemeProvider } from "styled-components";
-import GlobalStyles from "./styles/global";
 import theme from "./styles/theme";
+import GlobalStyles from "./styles/global";
+import { ThemeProvider } from "styled-components";
 
 import { AuthProvider } from "./hooks/auth";
+import { FavoritesProvider } from "./hooks/favorites";
 
 import Routes from "./routes";
 
@@ -15,7 +16,9 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <AuthProvider>
-          <Routes />
+          <FavoritesProvider>
+            <Routes />
+          </FavoritesProvider>
         </AuthProvider>
       </ThemeProvider>
     </React.StrictMode>
