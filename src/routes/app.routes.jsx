@@ -6,6 +6,7 @@ import Home from "../pages/Home";
 import New from "../pages/New";
 import Edit from "../pages/Edit";
 import Details from "../pages/Details";
+import Cart from "../pages/Cart";
 import Favorites from "../pages/Favorites";
 
 const ProtectedRoute = ({ element: Element, permissions }) => {
@@ -26,6 +27,7 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/details/:id" element={<Details />} />
+      <Route path="/cart" element={<Cart />} />
       <Route
         path="/new"
         element={<ProtectedRoute permissions={hasAdminAccess} element={New} />}
