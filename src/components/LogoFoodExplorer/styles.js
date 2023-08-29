@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { media } from "../../configs/breakpoints";
 
 export const Container = styled.div`
   display: flex;
@@ -15,6 +14,4 @@ export const Container = styled.div`
       color: ${({ theme }) => theme.COLORS.CAKE_100};
     }
   }
-  ${media.greaterThan("mobile")`
-  `}
 `;

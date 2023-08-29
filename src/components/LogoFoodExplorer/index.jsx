@@ -3,7 +3,7 @@ import { Container } from "./styles";
 
 export default function LogoFoodExplorer({ fill, stroke, size, isAdmin }) {
   return (
-    <Container>
+    <Container to="/">
       <Hexagon fill={fill} stroke={stroke} size={size} />
         <h1>
           food explorer
