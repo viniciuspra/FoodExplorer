@@ -1,4 +1,9 @@
-import { PrevArrowButton, NextArrowButton, PrevArrowIcon, NextArrowIcon } from "./styles";
+import {
+  PrevArrowButton,
+  NextArrowButton,
+  PrevArrowIcon,
+  NextArrowIcon,
+} from "./styles";
 
 export default function GetSliderSettings(dishes) {
   const PrevArrow = ({ onClick }) => {
@@ -32,10 +37,15 @@ export default function GetSliderSettings(dishes) {
         },
       },
       {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: Math.min(3, dishes.length),
+        },
+      },
+      {
         breakpoint: 1024,
         settings: {
           slidesToShow: Math.min(3, dishes.length),
-          arrows: false,
         },
       },
       {
