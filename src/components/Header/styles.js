@@ -15,6 +15,10 @@ export const Container = styled.header`
     justify-content: center;
     background-color: ${({ theme }) => theme.COLORS.DARK_700};
     padding: 3rem 10rem;
+
+    > a {
+      color: ${({ theme }) => theme.COLORS.WHITE};
+    }
   `}
 
   display: flex;
@@ -28,13 +32,23 @@ export const Container = styled.header`
 
 export const ButtonWrapper = styled.div`
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 3.2rem;
+    gap: 3rem;
+    flex-grow: 1;
+
+    > a {
+      color: ${({ theme }) => theme.COLORS.WHITE_300};
+      font-size: 1.4rem;
+      font-weight: normal;
+     }
+
+    > button {
+      max-width: 20rem;
+    }
 `
 
 export const InputWrapper = styled.div`
-  flex: 1;
+  flex: 80;
   padding: 0 3.2rem;
 `
 
@@ -43,6 +57,9 @@ export const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  > a {
+    color: ${({ theme }) => theme.COLORS.WHITE};
+  }
 `
 
 export const SearchWrapper = styled.div`

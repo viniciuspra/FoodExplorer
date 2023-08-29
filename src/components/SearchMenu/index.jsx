@@ -9,8 +9,8 @@ import {
 
 import Footer from "../Footer";
 
-import InputSearch from "../InputSearch";
-import { X } from "lucide-react";
+import Input from "../Input";
+import { Search, X } from "lucide-react";
 import TextButton from "../TextButton";
 
 export default function SearchMenu({
@@ -29,15 +29,21 @@ export default function SearchMenu({
       </CloseButtonWrapper>
       <ContentWrapper>
         <InputWrapper>
-          <InputSearch
+          <Input
             type="text"
             placeholder="Busque por pratos ou ingredientes"
+            icon={Search}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </InputWrapper>
 
-        {isAdmin ? <TextButton title="Novo Prato" to="/new" /> : ""}
+        {isAdmin ? (
+          <TextButton title="Novo Prato" to="/new" />
+        ) : (
+          <TextButton title="Meus Favoritos" to="/favorites" />
+        )}
+
         <TextButton title="Sair" onClick={signOut} />
       </ContentWrapper>
       <FooterWrapper>

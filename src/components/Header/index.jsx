@@ -1,6 +1,6 @@
 import { useAuth } from "../../hooks/auth";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 import {
@@ -12,12 +12,12 @@ import {
   InputWrapper,
 } from "./styles";
 
-import { Menu, LogOut, PlusCircle } from "lucide-react";
+import { Menu, LogOut, PlusCircle, Search } from "lucide-react";
 import Receipt from "../Receipt";
 
 import Button from "../Button";
 import SearchMenu from "../SearchMenu";
-import InputSearch from "../InputSearch";
+import Input from "../Input";
 import OrderControl from "../OrderControl";
 import LogoFoodExplorer from "../LogoFoodExplorer";
 
@@ -57,12 +57,14 @@ export default function Header({ search, setSearch }) {
                 <Menu stroke="white" size={28} />
               </MenuButton>
               <LogoWrapper>
+              <Link to="/">
                 <LogoFoodExplorer
                   fill="#065E7C"
                   stroke="#065E7C"
                   size="24"
                   isAdmin={user.isAdmin}
                 />
+              </Link>
               </LogoWrapper>
               {!user.isAdmin ? <OrderControl /> : ""}
             </Container>
@@ -80,27 +82,38 @@ export default function Header({ search, setSearch }) {
         </>
       ) : (
         <Container>
-          <LogoFoodExplorer
-            fill="#065E7C"
-            stroke="#065E7C"
-            size="32"
-            isAdmin={user.isAdmin}
-          />
+          <Link to="/">
+            <LogoFoodExplorer
+              fill="#065E7C"
+              stroke="#065E7C"
+              size="32"
+              isAdmin={user.isAdmin}
+            />
+          </Link>
           <InputWrapper>
-            <InputSearch
+            <Input
               type="text"
               placeholder="Busque por pratos ou ingredientes"
+              icon={Search}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </InputWrapper>
           <ButtonWrapper>
             {!user.isAdmin ? (
-              <Button
+              <>
+                <Link to="/favorites">
+                  Meus Favoritos
+                </Link>
+                <Link to="/favorites">
+                  Histórico de pedidos
+                </Link>
+                <Button
                 icon={Receipt}
                 text="Pedidos"
                 value={`(${value.length})`}
               />
+              </>
             ) : (
               <Button
                 icon={PlusCircle}
@@ -108,7 +121,7 @@ export default function Header({ search, setSearch }) {
                 onClick={NavigateNew}
               />
             )}
-            <LogOut size={40} cursor="pointer" onClick={handleSignOut} />
+            <LogOut size={28} cursor="pointer" onClick={handleSignOut} />
           </ButtonWrapper>
         </Container>
       )}
