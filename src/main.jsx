@@ -6,6 +6,7 @@ import GlobalStyles from "./styles/global";
 import { ThemeProvider } from "styled-components";
 
 import { AuthProvider } from "./hooks/auth";
+import { CartProvider } from "./hooks/cart-items";
 import { FavoritesProvider } from "./hooks/favorites";
 
 import Routes from "./routes";
@@ -17,7 +18,9 @@ export default function App() {
         <GlobalStyles />
         <AuthProvider>
           <FavoritesProvider>
-            <Routes />
+            <CartProvider>
+              <Routes />
+            </CartProvider>
           </FavoritesProvider>
         </AuthProvider>
       </ThemeProvider>
