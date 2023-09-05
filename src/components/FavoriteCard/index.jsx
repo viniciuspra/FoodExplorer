@@ -7,6 +7,8 @@ export default function FavoriteCard({ dishId, ...rest}) {
   const { updateFavorite } = useFavoritesContext()
   const [favoriteDish, setFavoriteDish] = useState([])
 
+  const imageURL = favoriteDish.image_url ? `${api.defaults.baseURL}/files/${favoriteDish.image_url}` : ''
+
   useEffect(() => {
     const fetchFavorites = async () => {
       const response = await api.get(`/dishes/${dishId}`)
@@ -22,7 +24,7 @@ export default function FavoriteCard({ dishId, ...rest}) {
 
   return (
     <Container {...rest}>
-      <img src={`${api.defaults.baseURL}/files/${favoriteDish.image_url}`} alt="imagem do prato"/>
+      <img src={imageURL} alt="imagem do prato"/>
       <main>
         <h1>{favoriteDish.name}</h1>
         <button onClick={handleRemoveFavorite}>Remover dos favoritos</button>
