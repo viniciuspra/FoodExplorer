@@ -12,7 +12,7 @@ import {
   InputWrapper,
 } from "./styles";
 
-import { Menu, LogOut, PlusCircle, Search } from "lucide-react";
+import { Menu, LogOut, Search } from "lucide-react";
 import Receipt from "../Receipt";
 
 import Button from "../Button";
@@ -21,7 +21,7 @@ import Input from "../Input";
 import OrderControl from "../OrderControl";
 import LogoFoodExplorer from "../LogoFoodExplorer";
 
-import useLocalStorage from "../../hooks/useLocalStorage";
+import { useCartContext } from "../../hooks/cart-items";
 
 export default function Header({ search, setSearch }) {
   const { user, signOut } = useAuth();
@@ -30,7 +30,9 @@ export default function Header({ search, setSearch }) {
 
   const navigate = useNavigate();
 
-  const { value } = useLocalStorage("order-items");
+  const { cartItems } = useCartContext();
+
+  const totalQuantity = cartItems ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0
 
   const [searchMenuOpen, setsearchMenuOpen] = useState(false);
 
@@ -43,8 +45,12 @@ export default function Header({ search, setSearch }) {
     navigate("/");
   };
 
-  const NavigateNew = () => {
-    navigate("/new");
+  const NavigateToHistory = () => {
+    navigate("/history");
+  };
+
+  const navigateToCart = () => {
+    navigate("/cart");
   };
 
   return (
@@ -57,14 +63,14 @@ export default function Header({ search, setSearch }) {
                 <Menu stroke="white" size={28} />
               </MenuButton>
               <LogoWrapper>
-              <Link to="/">
-                <LogoFoodExplorer
-                  fill="#065E7C"
-                  stroke="#065E7C"
-                  size="24"
-                  isAdmin={user.isAdmin}
-                />
-              </Link>
+                <Link to="/">
+                  <LogoFoodExplorer
+                    fill="#065E7C"
+                    stroke="#065E7C"
+                    size="24"
+                    isAdmin={user.isAdmin}
+                  />
+                </Link>
               </LogoWrapper>
               {!user.isAdmin ? <OrderControl /> : ""}
             </Container>
@@ -102,24 +108,24 @@ export default function Header({ search, setSearch }) {
           <ButtonWrapper>
             {!user.isAdmin ? (
               <>
-                <Link to="/favorites">
-                  Meus Favoritos
-                </Link>
-                <Link to="/favorites">
-                  Histórico de pedidos
-                </Link>
+                <Link to="/history">Histórico de pedidos</Link>
+                <Link to="/favorites">Meus Favoritos</Link>
                 <Button
-                icon={Receipt}
-                text="Pedidos"
-                value={`(${value.length})`}
-              />
+                  icon={Receipt}
+                  text="Pedidos"
+                  value={`(${totalQuantity})`}
+                  onClick={navigateToCart}
+                />
               </>
             ) : (
-              <Button
-                icon={PlusCircle}
-                text="Criar Prato"
-                onClick={NavigateNew}
-              />
+              <>
+                <Link to="/new">Criar Prato</Link>
+                <Button
+                  icon={Receipt}
+                  text="Pedidos"
+                  onClick={NavigateToHistory}
+                />
+              </>
             )}
             <LogOut size={28} cursor="pointer" onClick={handleSignOut} />
           </ButtonWrapper>

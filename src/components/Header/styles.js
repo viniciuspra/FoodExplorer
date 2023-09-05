@@ -31,26 +31,27 @@ export const Container = styled.header`
 `;
 
 export const ButtonWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  flex-grow: 5;
 
-    > a {
-      color: ${({ theme }) => theme.COLORS.WHITE_300};
-      font-size: 1.4rem;
-      font-weight: normal;
-     }
+  > a {
+    color: ${({ theme }) => theme.COLORS.WHITE_300};
+    font-size: 1.4rem;
+    font-weight: normal;
+  }
 
-    > button {
-      max-width: 20rem;
-    }
-`
+  > button {
+    max-width: 20rem;
+  }
+`;
 
 export const InputWrapper = styled.div`
-  flex: 80;
+  flex: 50;
   padding: 0 3.2rem;
-`
+`;
 
 export const LogoWrapper = styled.div`
   flex-grow: 1;
@@ -60,7 +61,7 @@ export const LogoWrapper = styled.div`
   > a {
     color: ${({ theme }) => theme.COLORS.WHITE};
   }
-`
+`;
 
 export const SearchWrapper = styled.div`
   overflow: hidden;
