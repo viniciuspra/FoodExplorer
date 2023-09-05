@@ -4,8 +4,11 @@ import { media } from "../../configs/breakpoints";
 export const Container = styled.div`
   height: 100vh;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 
   > main {
+    flex-grow: 1;
     padding: 2.8rem;
   }
 
@@ -44,3 +47,21 @@ export const Container = styled.div`
     margin-bottom: 2.8rem;
   }
 `;
+
+export const NoFavoriteDishes = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  color: ${({ theme }) => theme.COLORS.WHITE};
+  break-inside: avoid;
+  ${media.greaterThan("mobile")`
+    min-width: 200%;
+  `}
+  ${media.greaterThan("desktop")`
+    min-width: 320%;
+  `}
+`
