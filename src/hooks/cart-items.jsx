@@ -9,8 +9,16 @@ function CartProvider({ children }) {
   );
 
   const addToCart = (id, quantity) => {
-    const updatedCart = [...cartItems, { id, quantity }];
-    updateLocalStorage(updatedCart);
+    const existingCartItem = cartItems ? cartItems.findIndex((item) => item.id === id) : -1;
+    console.log(existingCartItem, cartItems);
+    if (existingCartItem !== -1) {
+      const updatedCart = [...cartItems];
+      updatedCart[existingCartItem].quantity += quantity;
+      updateLocalStorage(updatedCart);
+    } else {
+      const updatedCart = [...(cartItems || []), { id, quantity }];
+      updateLocalStorage(updatedCart);
+    }
   };
 
   const removeFromCart = (dishId) => {
