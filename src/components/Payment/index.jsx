@@ -29,7 +29,7 @@ export default function Payment() {
           <CreditCard size={28} /> Crédito
         </Option>
       </PaymentOptions>
-      <PaymentContent selectedOption={selectedOption}/>
+      <PaymentContent selectedOption={selectedOption} />
     </Container>
   );
 }
