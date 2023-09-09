@@ -22,7 +22,7 @@ function CartProvider({ children }) {
   };
 
   const removeFromCart = (dishId) => {
-    const updatedCart = cartItems.filter((id) => id !== dishId);
+    const updatedCart = cartItems.filter((item) => item.id !== dishId);
     updateLocalStorage(updatedCart);
   };
 
