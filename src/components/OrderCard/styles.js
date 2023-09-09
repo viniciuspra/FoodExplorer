@@ -4,24 +4,30 @@ export const Container = styled.div`
   width: fit-content;
 
   > main {
-    display: grid;
-    grid-template-areas: "img content content" "img button .";
+    display: flex;
     align-items: center;
-    justify-content: center;
     gap: 1rem;
+    margin-bottom: 1.4rem;
 
     > img {
-      width: 8rem;
-      grid-area: img;
+      width: 7.2rem;
     }
 
-    > button {
-      background: transparent;
-      border: none;
-      color: ${({ theme }) => theme.COLORS.TOMATO_400};
-      cursor: pointer;
-      grid-area: button;
-      margin-top: -3rem;
+    > div {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      > button {
+        display: flex;
+        justify-content: flex-start;
+        background: transparent;
+        border: none;
+        color: ${({ theme }) => theme.COLORS.TOMATO_400};
+        cursor: pointer;
+      }
     }
   }
 `;
@@ -29,21 +35,20 @@ export const Container = styled.div`
 export const ContentWrapper = styled.div`
   display: flex;
   align-items: center;
-  grid-area: content;
   font-family: "Poppins";
-  gap: 0.5rem;
+  gap: 1rem;
 
   > span {
-    font-size: 2rem;
+    font-size: clamp(1.3rem, 1.3rem + 1vw, 2rem);
   }
 
   > h1 {
-    font-size: 2rem;
+    font-size: clamp(1.3rem, 1rem + 1vw, 2rem);
     font-weight: 400;
   }
 
   > p {
-    font-size: 1.4rem;
+    font-size: clamp(1rem, 0.8rem + 1vw, 1.4rem);
     color: ${({ theme }) => theme.COLORS.GRAY_100};
   }
 `;
