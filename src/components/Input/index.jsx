@@ -1,6 +1,6 @@
 import { Container } from "./styles"
 
-export default function InputSearch({ icon: Icon, ...rest }) {
+export default function Input({ icon: Icon, ...rest }) {
   return (
     <Container>
         {Icon && <Icon />}
