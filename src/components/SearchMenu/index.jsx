@@ -39,11 +39,16 @@ export default function SearchMenu({
         </InputWrapper>
 
         {isAdmin ? (
-          <TextButton title="Novo Prato" to="/new" />
+          <>
+            <TextButton title="Novo Prato" to="/new" />
+            <TextButton title="Pedidos" to="/history" />
+          </>
         ) : (
-          <TextButton title="Meus Favoritos" to="/favorites" />
-        )}
-
+          <>
+            <TextButton title="Meus Favoritos" to="/favorites" />
+            <TextButton title="Histórico de Pedidos" to="/history" />
+          </>
+          )}
         <TextButton title="Sair" onClick={signOut} />
       </ContentWrapper>
       <FooterWrapper>
