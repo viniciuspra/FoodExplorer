@@ -8,6 +8,7 @@ import Edit from "../pages/Edit";
 import Details from "../pages/Details";
 import Cart from "../pages/Cart";
 import Favorites from "../pages/Favorites";
+import OrderHistory from "../pages/OrderHistory";
 
 const ProtectedRoute = ({ element: Element, permissions }) => {
   const { user } = useAuth();
@@ -28,6 +29,7 @@ export default function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/details/:id" element={<Details />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/order-history" element={<OrderHistory />} />
       <Route
         path="/new"
         element={<ProtectedRoute permissions={hasAdminAccess} element={New} />}
