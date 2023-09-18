@@ -26,22 +26,22 @@ export const LinkWrapper = styled(Link)`
 `;
 
 export const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.3rem, 0.2rem + 1vw, 1.2rem);
+  color: ${({ theme }) => theme.COLORS.WHITE};
+
+  > a {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: clamp(0.3rem, 0.2rem + 1vw, 1.2rem);
+    justify-content: center;
+    gap: 1rem;
     color: ${({ theme }) => theme.COLORS.WHITE};
+    border-radius: 20%;
 
-    > a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      color: ${({ theme }) => theme.COLORS.WHITE};
-      border-radius: 20%;
-      
     > img {
       width: clamp(8rem, 4rem + 10vw, 15rem);
     }
@@ -66,6 +66,6 @@ export const Paragraph = styled.div`
   max-width: 25rem;
   font-size: 1.2rem;
   text-align: center;
-  overflow: hidden; 
+  overflow: hidden;
   text-overflow: ellipsis;
-`
+`;

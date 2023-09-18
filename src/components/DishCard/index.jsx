@@ -1,15 +1,17 @@
+import { useFavoritesContext } from "../../hooks/favorites";
 import { useEffect, useState } from "react";
+import { useCartContext } from "../../hooks/cart-items";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 
-import { Container, ContentWrapper, LinkWrapper, Paragraph } from "./styles";
 import { ChevronRight, Heart, Pencil } from "lucide-react";
-import Counter from "../Counter";
-import Button from "../Button";
-import { useFavoritesContext } from "../../hooks/favorites";
-import { useCartContext } from "../../hooks/cart-items";
 
-export default function DishCard({
+import { Counter } from "../Counter";
+import { Button } from "../Button";
+
+import { Container, ContentWrapper, LinkWrapper, Paragraph } from "./styles";
+
+export function DishCard({
   id,
   title,
   image_url,

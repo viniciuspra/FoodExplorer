@@ -11,7 +11,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  ${media.greaterThan('desktop')`
+  ${media.greaterThan("desktop")`
     max-width: 100vw;
     flex-direction: row;
     justify-content: space-around;
@@ -54,7 +54,7 @@ export const Form = styled.form`
     text-align: center;
   }
 
-  ${media.greaterThan('desktop')`
+  ${media.greaterThan("desktop")`
     width: clamp(35rem, 20rem + 20vw, 80rem);
     padding: clamp(3rem, 3vw, 10rem) 5.6rem;
 

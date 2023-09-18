@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import styled from "styled-components";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export const PrevArrowButton = styled.button`
   position: absolute;

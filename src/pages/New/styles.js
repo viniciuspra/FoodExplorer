@@ -11,18 +11,18 @@ export const Container = styled.div`
     font-weight: 400;
     margin: 3.5rem 3.2rem 0;
   }
-  
+
   > a:nth-child(2) {
     margin: 2.4rem;
   }
 
-  ${media.greaterThan('mobile')`
+  ${media.greaterThan("mobile")`
     > a:nth-child(2) {
       margin: 2.4rem 4rem;
     }
   `}
 
-  ${media.greaterThan('desktop')`
+  ${media.greaterThan("desktop")`
     > h1 {
       margin: 3.5rem 10rem 0;
     }
@@ -40,11 +40,11 @@ export const Form = styled.form`
   margin-top: 2.4rem;
   padding: 0 2.4rem;
 
-  ${media.greaterThan('mobile')`
+  ${media.greaterThan("mobile")`
     padding: 0 4rem;
   `}
 
-  ${media.greaterThan('desktop')`
+  ${media.greaterThan("desktop")`
     display: grid;
     gap: 2.4rem;
     margin: 2.4rem 10rem;
@@ -70,7 +70,7 @@ export const Form = styled.form`
     color: ${({ theme }) => theme.COLORS.GRAY_100};
     font-size: 1.6rem;
 
-    ${media.greaterThan('desktop')`
+    ${media.greaterThan("desktop")`
       &:nth-child(1) {
         grid-area: image;
       }
@@ -95,7 +95,7 @@ export const Form = styled.form`
         grid-area: description;
       }
     `}
-    
+
     .input-currency {
       background-color: ${({ theme }) => theme.COLORS.DARK_900};
       color: ${({ theme }) => theme.COLORS.WHITE};
@@ -114,7 +114,6 @@ export const Form = styled.form`
         color: ${({ theme }) => theme.COLORS.GRAY_200};
       }
     }
-
   }
 
   .itens {
@@ -123,7 +122,7 @@ export const Form = styled.form`
     justify-content: left;
     align-items: center;
     gap: 1.6rem;
-    
+
     background-color: ${({ theme }) => theme.COLORS.DARK_900};
 
     padding: 1rem;
@@ -131,7 +130,8 @@ export const Form = styled.form`
     border-radius: 1rem;
   }
 
-  > label > select, option {
+  > label > select,
+  option {
     width: 100%;
     height: 4rem;
 
@@ -154,12 +154,12 @@ export const DishImg = styled.div`
   border-radius: 1rem;
 
   color: ${({ theme }) => theme.COLORS.WHITE};
-  
+
   display: flex;
   align-items: center;
   gap: 1rem;
   padding: 1.2rem 1rem 1.2rem 2rem;
-  
+
   cursor: pointer;
 
   > input {
@@ -175,7 +175,7 @@ export const DishImg = styled.div`
   > span {
     flex: 1;
   }
-`
+`;
 
 export const ImagePreview = styled.div`
   width: 100%;
@@ -205,4 +205,4 @@ export const ImagePreview = styled.div`
       transition: 200ms;
     }
   }
-`
+`;

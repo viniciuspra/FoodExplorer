@@ -64,4 +64,4 @@ export const NoFavoriteDishes = styled.p`
   ${media.greaterThan("desktop")`
     min-width: 320%;
   `}
-`
+`;

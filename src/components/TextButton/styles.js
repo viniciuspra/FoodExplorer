@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export const Container = styled(Link)`
   width: 100%;
@@ -16,4 +16,4 @@ export const Container = styled(Link)`
   color: ${({ theme }) => theme.COLORS.WHITE};
 
   padding-bottom: 0.8rem;
-`
+`;

@@ -5,7 +5,7 @@ import {
   NextArrowIcon,
 } from "./styles";
 
-export default function GetSliderSettings(dishes) {
+export function GetSliderSettings(dishes) {
   const PrevArrow = ({ onClick }) => {
     return (
       <PrevArrowButton onClick={onClick}>

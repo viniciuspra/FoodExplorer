@@ -1,3 +1,9 @@
+import { Search, X } from "lucide-react";
+
+import { Input } from "../Input";
+import { Footer } from "../Footer";
+import { TextButton } from "../TextButton";
+
 import {
   Container,
   InputWrapper,
@@ -7,13 +13,7 @@ import {
   FooterWrapper,
 } from "./styles";
 
-import Footer from "../Footer";
-
-import Input from "../Input";
-import { Search, X } from "lucide-react";
-import TextButton from "../TextButton";
-
-export default function SearchMenu({
+export function SearchMenu({
   onClose,
   isAdmin,
   signOut,
@@ -41,14 +41,14 @@ export default function SearchMenu({
         {isAdmin ? (
           <>
             <TextButton title="Novo Prato" to="/new" />
-            <TextButton title="Pedidos" to="/history" />
+            <TextButton title="Pedidos" to="/order-history" />
           </>
         ) : (
           <>
             <TextButton title="Meus Favoritos" to="/favorites" />
-            <TextButton title="Histórico de Pedidos" to="/history" />
+            <TextButton title="Histórico de Pedidos" to="/order-history" />
           </>
-          )}
+        )}
         <TextButton title="Sair" onClick={signOut} />
       </ContentWrapper>
       <FooterWrapper>

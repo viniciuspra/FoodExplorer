@@ -9,9 +9,9 @@ import { AuthProvider } from "./hooks/auth";
 import { CartProvider } from "./hooks/cart-items";
 import { FavoritesProvider } from "./hooks/favorites";
 
-import Routes from "./routes";
+import { Routes } from "./routes";
 
-export default function App() {
+export function App() {
   return (
     <React.StrictMode>
       <ThemeProvider theme={theme}>

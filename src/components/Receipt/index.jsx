@@ -1,4 +1,4 @@
-export default function Receipt() {
+export function Receipt() {
   return (
     <svg
       width="33"

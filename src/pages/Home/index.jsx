@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Container, NoDishesMessage } from "./styles";
-import Banner from "../../components/Banner";
-import Section from "../../components/Section";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
 import { api } from "../../services/api";
 
-export default function Home() {
+import { Section } from "../../components/Section";
+import { Banner } from "../../components/Banner";
+import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header";
+
+import { Container, NoDishesMessage } from "./styles";
+
+export function Home() {
   const [search, setSearch] = useState("");
   const [filteredSections, setFilteredSections] = useState([]);
 

@@ -1,9 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  
 
   background-color: ${({ theme, $isnew }) =>
     $isnew ? "transparent" : theme.COLORS.GRAY_300};
@@ -47,4 +46,4 @@ export const Container = styled.div`
       color: ${({ theme }) => theme.COLORS.GRAY_300};
     }
   }
-`
+`;

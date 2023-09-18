@@ -1,4 +1,3 @@
-// React Router DOM, React Hooks e API
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
@@ -6,23 +5,21 @@ import { api } from "../../services/api";
 
 import CurrencyInput from "react-currency-input-field";
 
-// Componentes e Icon
-import Input from "../../components/Input";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import Button from "../../components/Button";
-import TextArea from "../../components/TextArea";
-import BackButton from "../../components/BackButton";
-import IngredientItem from "../../components/IngredientItem";
+import { Input } from "../../components/Input";
+import { Header } from "../../components/Header";
+import { Footer } from "../../components/Footer";
+import { Button } from "../../components/Button";
+import { TextArea } from "../../components/TextArea";
+import { BackButton } from "../../components/BackButton";
+import { IngredientItem } from "../../components/IngredientItem";
+
 import { Check, Upload, X } from "lucide-react";
 
-// Estilos da pagina
 import { Container, Form, DishImg, ImagePreview } from "./styles";
 
-export default function New() {
+export function New() {
   const { user } = useAuth();
 
-  // Estado para armazenar os dados do formulário
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -38,7 +35,6 @@ export default function New() {
 
   const navigate = useNavigate();
 
-  // funcao para atualizar os campos do formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     const formattedValue =
@@ -46,7 +42,6 @@ export default function New() {
     setFormData((prevData) => ({ ...prevData, [name]: formattedValue }));
   };
 
-  // funcao para add um novo ingredient no array
   const handleAddIngredient = () => {
     const { ingredients } = formData;
     // verifica se o novo ingredient esta vazio e duplicado e atualiza o estado
@@ -60,7 +55,6 @@ export default function New() {
     }
   };
 
-  // funcao para remover um ingredient do array
   const handleRemoveIngredient = (ingredientToRemove) => {
     const { ingredients } = formData;
     // filtra o ingredient removido do array e atualiza o estado
@@ -73,20 +67,17 @@ export default function New() {
     }));
   };
 
-  // funcao para add um arquivo de img
   const handleAddFile = (e) => {
     const file = e.target.files[0];
     setImagePreview(URL.createObjectURL(file));
     setFormData((prevData) => ({ ...prevData, image_url: file }));
   };
 
-  // funcao para remover o arquivo de img selecionado
   const handleRemoveFile = () => {
     setImagePreview(null);
     setFormData((prevData) => ({ ...prevData, image_url: null }));
   };
 
-  // funcao para criar um novo prato
   const handleNewDish = async (e) => {
     e.preventDefault();
 
@@ -99,7 +90,6 @@ export default function New() {
 
     const formattedPrice = price.replace(",", ".");
 
-    // criaçao do objeto FormData para enviar os dados
     const newDishData = new FormData();
     newDishData.append("name", name);
     newDishData.append("description", description);
@@ -114,7 +104,6 @@ export default function New() {
       newDishData.append("image_url", image_url);
     }
 
-    // envia a requisição para o backend
     try {
       await api.post("/dishes", newDishData);
       alert("Prato criado com sucesso!");
@@ -130,7 +119,6 @@ export default function New() {
       <BackButton to="/" />
       <h1>Novo Prato</h1>
       <Form>
-        {/* Campo para selecionar uma imagem */}
         <label>
           Imagem do prato
           <DishImg>
@@ -151,7 +139,6 @@ export default function New() {
             )}
           </DishImg>
         </label>
-        {/* Campo para inserir o nome do prato */}
         <label>
           Nome
           <Input
@@ -162,7 +149,6 @@ export default function New() {
             onChange={handleInputChange}
           />
         </label>
-        {/* Campo para selecionar a categoria do prato */}
         <label>
           Categoria
           <select
@@ -176,7 +162,6 @@ export default function New() {
             <option value="bebida">Bebida</option>
           </select>
         </label>
-        {/* Campo para gerenciar ingredientes */}
         <label>
           Ingredientes
           <div className="itens">
@@ -187,7 +172,6 @@ export default function New() {
                 onClick={() => handleRemoveIngredient(ingredient)}
               />
             ))}
-            {/* Campo para adicionar um novo ingrediente */}
             <IngredientItem
               $isnew
               placeholder="Adicionar"
@@ -203,7 +187,6 @@ export default function New() {
             />
           </div>
         </label>
-        {/* Campo para inserir o preço do prato */}
         <label>
           Preço
           <CurrencyInput
@@ -215,7 +198,6 @@ export default function New() {
             name="price"
           />
         </label>
-        {/* Campo para inserir a descrição do prato */}
         <label>
           Descrição
           <TextArea
@@ -225,7 +207,6 @@ export default function New() {
             onChange={handleInputChange}
           />
         </label>
-        {/* Botão para salvar as alterações */}
         <Button text="Criar Prato" onClick={handleNewDish} />
       </Form>
       <Footer />

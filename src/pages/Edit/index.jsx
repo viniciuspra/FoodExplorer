@@ -1,16 +1,17 @@
-import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { api } from "../../services/api";
 
 import CurrencyInput from "react-currency-input-field";
 
-import Input from "../../components/Input";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import Button from "../../components/Button";
-import TextArea from "../../components/TextArea";
-import BackButton from "../../components/BackButton";
-import IngredientItem from "../../components/IngredientItem";
+import { Input } from "../../components/Input";
+import { Header } from "../../components/Header";
+import { Footer } from "../../components/Footer";
+import { Button } from "../../components/Button";
+import { TextArea } from "../../components/TextArea";
+import { BackButton } from "../../components/BackButton";
+import { IngredientItem } from "../../components/IngredientItem";
+
 import { Check } from "lucide-react";
 
 import {
@@ -21,15 +22,13 @@ import {
   ImagePreview,
 } from "./styles";
 
-export default function Edit() {
+export function Edit() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Estado para lidar com carregamento
   const [loading, setLoading] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
 
-  // Estado para armazenar os dados do formulário
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -44,10 +43,10 @@ export default function Edit() {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
-  // funcao para atualizar os campos do formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const formattedValue = name === "price" ? value.replace(/[^\d,]/g, "") : value;
+    const formattedValue =
+      name === "price" ? value.replace(/[^\d,]/g, "") : value;
     setFormData((prevData) => ({ ...prevData, [name]: formattedValue }));
   };
 
@@ -235,7 +234,7 @@ export default function Edit() {
         </label>
         <label>
           Preço
-          <CurrencyInput 
+          <CurrencyInput
             placeholder="R$ 00,00"
             prefix="R$ "
             decimalsLimit={2}

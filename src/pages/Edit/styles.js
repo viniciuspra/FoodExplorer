@@ -16,7 +16,7 @@ export const Container = styled.div`
     margin: 2.8rem;
   }
 
-  ${media.greaterThan('mobile')`
+  ${media.greaterThan("mobile")`
     > h1 {
       margin: 2.4rem 4rem;
     }
@@ -24,7 +24,7 @@ export const Container = styled.div`
       margin: 2.4rem 4rem;
     }
   `}
-  ${media.greaterThan('desktop')`
+  ${media.greaterThan("desktop")`
     > h1 {
       margin: 2.8rem 10rem;
     }
@@ -32,7 +32,6 @@ export const Container = styled.div`
       margin: 2.8rem 10rem;
     }
   `}
-
 `;
 
 export const Form = styled.form`
@@ -50,7 +49,7 @@ export const Form = styled.form`
 
     color: ${({ theme }) => theme.COLORS.GRAY_100};
     font-size: 1.6rem;
-    ${media.greaterThan('desktop')`
+    ${media.greaterThan("desktop")`
       &:nth-child(1) {
         grid-area: image;
       }
@@ -102,7 +101,7 @@ export const Form = styled.form`
     justify-content: left;
     align-items: center;
     gap: 1.6rem;
-    
+
     background-color: ${({ theme }) => theme.COLORS.DARK_900};
 
     padding: 1rem;
@@ -110,7 +109,8 @@ export const Form = styled.form`
     border-radius: 1rem;
   }
 
-  > label > select, option {
+  > label > select,
+  option {
     width: 100%;
     height: 4rem;
 
@@ -125,12 +125,12 @@ export const Form = styled.form`
     padding: 0 0.5rem;
   }
 
-  ${media.greaterThan('mobile')`
+  ${media.greaterThan("mobile")`
     margin: 2.4rem 4rem 0;
     padding: 0;
   `}
-  
-  ${media.greaterThan('desktop')`
+
+  ${media.greaterThan("desktop")`
     display: grid;
     gap: 2.4rem;
     margin: 2.4rem 10rem;
@@ -143,7 +143,6 @@ export const Form = styled.form`
       "description description description"
       ". button button";
   `}
-
 `;
 
 export const DishImg = styled.div`
@@ -153,12 +152,12 @@ export const DishImg = styled.div`
   border-radius: 1rem;
 
   color: ${({ theme }) => theme.COLORS.WHITE};
-  
+
   display: flex;
   align-items: center;
   gap: 1rem;
   padding: 0.5rem 2rem;
-  
+
   cursor: pointer;
 
   > input {
@@ -174,17 +173,17 @@ export const DishImg = styled.div`
   > span {
     flex: 1;
   }
-`
+`;
 
 export const ButtonWrapper = styled.div`
   height: 4rem;
   display: flex;
   gap: 1rem;
 
-  ${media.greaterThan('desktop')`
+  ${media.greaterThan("desktop")`
     grid-area: button;
   `}
-`
+`;
 
 export const ImagePreview = styled.div`
   width: 100%;
@@ -215,4 +214,4 @@ export const ImagePreview = styled.div`
       transition: 200ms;
     }
   }
-`
+`;

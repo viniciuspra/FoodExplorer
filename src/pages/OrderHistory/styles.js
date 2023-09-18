@@ -28,7 +28,7 @@ export const Container = styled.div`
     font-size: 1.4rem;
     font-weight: normal;
   }
-  
+
   th,
   td {
     padding: 1rem 3rem;
@@ -51,10 +51,10 @@ export const Container = styled.div`
   }
 
   .status-pendente::before {
-    content: '';
+    content: "";
     width: 1rem;
     height: 1rem;
-    
+
     background-color: red;
     border-radius: 50%;
 
@@ -65,7 +65,7 @@ export const Container = styled.div`
   }
 
   .status-preparando::before {
-    content: '';
+    content: "";
     width: 1rem;
     height: 1rem;
 
@@ -79,7 +79,7 @@ export const Container = styled.div`
   }
 
   .status-entregue::before {
-    content: '';
+    content: "";
     width: 1rem;
     height: 1rem;
 
@@ -92,7 +92,8 @@ export const Container = styled.div`
     transform: translateY(-50%);
   }
 
-  .custom-select, option {
+  .custom-select,
+  option {
     width: 12rem;
     height: 4rem;
 
@@ -115,7 +116,7 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     height: 100%;
   }
 `;

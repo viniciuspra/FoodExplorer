@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { media } from "../../configs/breakpoints";
 
 export const Container = styled.div`
-  height: 80vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   > a:nth-child(2) {
     margin: 2.4rem 2.4rem 0;
@@ -17,7 +19,7 @@ export const Container = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  height: 100vh;
+  flex: 1;
   margin: 2.4rem;
   display: flex;
   flex-direction: column;

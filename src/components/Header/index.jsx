@@ -1,7 +1,17 @@
-import { useAuth } from "../../hooks/auth";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useCartContext } from "../../hooks/cart-items";
 import { useMediaQuery } from "react-responsive";
+import { useState } from "react";
+import { useAuth } from "../../hooks/auth";
+
+import { Menu, LogOut, Search } from "lucide-react";
+
+import { Input } from "../Input";
+import { Button } from "../Button";
+import { Receipt } from "../Receipt";
+import { SearchMenu } from "../SearchMenu";
+import { OrderControl } from "../OrderControl";
+import { LogoFoodExplorer } from "../LogoFoodExplorer";
 
 import {
   Container,
@@ -12,18 +22,7 @@ import {
   InputWrapper,
 } from "./styles";
 
-import { Menu, LogOut, Search } from "lucide-react";
-import Receipt from "../Receipt";
-
-import Button from "../Button";
-import SearchMenu from "../SearchMenu";
-import Input from "../Input";
-import OrderControl from "../OrderControl";
-import LogoFoodExplorer from "../LogoFoodExplorer";
-
-import { useCartContext } from "../../hooks/cart-items";
-
-export default function Header({ search, setSearch }) {
+export function Header({ search, setSearch }) {
   const { user, signOut } = useAuth();
 
   const isMobile = useMediaQuery({ maxWidth: 1280 });
@@ -32,7 +31,9 @@ export default function Header({ search, setSearch }) {
 
   const { cartItems } = useCartContext();
 
-  const totalQuantity = cartItems ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0
+  const totalQuantity = cartItems
+    ? cartItems.reduce((total, item) => total + item.quantity, 0)
+    : 0;
 
   const [searchMenuOpen, setsearchMenuOpen] = useState(false);
 
@@ -46,7 +47,7 @@ export default function Header({ search, setSearch }) {
   };
 
   const NavigateToHistory = () => {
-    navigate("/history");
+    navigate("/order-history");
   };
 
   const navigateToCart = () => {
@@ -108,7 +109,7 @@ export default function Header({ search, setSearch }) {
           <ButtonWrapper>
             {!user.isAdmin ? (
               <>
-                <Link to="/history">Histórico de pedidos</Link>
+                <Link to="/order-history">Histórico de pedidos</Link>
                 <Link to="/favorites">Meus Favoritos</Link>
                 <Button
                   icon={Receipt}

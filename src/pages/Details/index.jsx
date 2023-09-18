@@ -1,26 +1,28 @@
-import BackButton from "../../components/BackButton";
-import { Container, ContentWrapper, ButtonWrapper } from "./styles";
-
-import Button from "../../components/Button";
-
-import Counter from "../../components/Counter";
-import Receipt from "../../components/Receipt";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-
-import { useAuth } from "../../hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useCartContext } from "../../hooks/cart-items";
+import { useAuth } from "../../hooks/auth";
 import { api } from "../../services/api";
 
-export default function Details() {
+import { BackButton } from "../../components/BackButton";
+import { Receipt } from "../../components/Receipt";
+import { Counter } from "../../components/Counter";
+import { Button } from "../../components/Button";
+import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header";
+
+import { Container, ContentWrapper, ButtonWrapper } from "./styles";
+
+export function Details() {
   const { user } = useAuth();
+  const { addToCart } = useCartContext();
   const { id } = useParams();
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const [totalPrice, setTotalPrice] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const formattedPrice = totalPrice.toFixed(2).replace(".", ",");
 
@@ -31,8 +33,13 @@ export default function Details() {
   };
 
   const handleCountChange = (newCount) => {
+    setQuantity(newCount);
     setTotalPrice(newCount * (data ? data.price : 0));
-  }
+  };
+
+  const handleAddToCart = () => {
+    addToCart(id, quantity);
+  };
 
   useEffect(() => {
     async function fetchDish() {
@@ -76,11 +83,12 @@ export default function Details() {
               <ButtonWrapper>
                 {!user.isAdmin ? (
                   <>
-                    <Counter onCountChange={handleCountChange}/>
+                    <Counter onCountChange={handleCountChange} />
                     <Button
                       icon={Receipt}
                       text="pedir"
                       value={`R$${formattedPrice}`}
+                      onClick={() => handleAddToCart({ id, quantity })}
                     />
                   </>
                 ) : (

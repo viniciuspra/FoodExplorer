@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   width: 30rem;
@@ -8,7 +8,7 @@ export const Container = styled.div`
   align-items: center;
   gap: 0.8rem;
 
-  > img {
+  > a > img {
     width: 8rem;
   }
 
@@ -18,12 +18,11 @@ export const Container = styled.div`
       font-weight: 500;
       font-family: "Poppins", serif;
     }
-  
+
     > button {
       background: transparent;
       border: none;
       color: ${({ theme }) => theme.COLORS.TOMATO_400};
     }
   }
-
-`
+`;

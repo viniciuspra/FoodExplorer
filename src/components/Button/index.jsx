@@ -1,6 +1,13 @@
-import { Container } from './styles';
+import { Container } from "./styles";
 
-export default function Button({ text, icon: Icon, $isblack, value, loading = false, ...rest }) {
+export function Button({
+  text,
+  icon: Icon,
+  $isblack,
+  value,
+  loading = false,
+  ...rest
+}) {
   return (
     <Container {...rest} disabled={loading} $isblack={$isblack}>
       {Icon && <Icon />}

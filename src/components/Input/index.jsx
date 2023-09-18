@@ -1,10 +1,10 @@
-import { Container } from "./styles"
+import { Container } from "./styles";
 
-export default function Input({ icon: Icon, ...rest }) {
+export function Input({ icon: Icon, ...rest }) {
   return (
     <Container>
-        {Icon && <Icon />}
-        <input {...rest} />
+      {Icon && <Icon />}
+      <input {...rest} />
     </Container>
-  )
+  );
 }

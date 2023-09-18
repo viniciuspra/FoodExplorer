@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { Container, PaymentOptions, Option } from "./styles";
-import Pix from "../Pix";
-import { CreditCard } from "lucide-react";
-import PaymentContent from "../PaymentContent";
 
-export default function Payment() {
+import { CreditCard } from "lucide-react";
+
+import { PaymentContent } from "../PaymentContent";
+import { Pix } from "../Pix";
+
+import { Container, PaymentOptions, Option } from "./styles";
+
+export function Payment() {
   const [selectedOption, setSelectedOption] = useState("pix");
 
   const handleChangeSelectedOption = (option) => {
@@ -16,14 +19,14 @@ export default function Payment() {
       <PaymentOptions>
         <Option
           selected={selectedOption == "pix"}
-          isFirst
+          $isfirst
           onClick={() => handleChangeSelectedOption("pix")}
         >
           <Pix /> PIX
         </Option>
         <Option
           selected={selectedOption == "creditCard"}
-          isLast
+          $islast
           onClick={() => handleChangeSelectedOption("creditCard")}
         >
           <CreditCard size={28} /> Crédito

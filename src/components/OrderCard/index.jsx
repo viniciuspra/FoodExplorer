@@ -1,8 +1,9 @@
-import { Container, ContentWrapper } from "./styles";
-import { api } from "../../services/api";
 import { useCartContext } from "../../hooks/cart-items";
+import { api } from "../../services/api";
 
-export default function OrderCard({ cartDishes }) {
+import { Container, ContentWrapper } from "./styles";
+
+export function OrderCard({ cartDishes }) {
   const { removeFromCart } = useCartContext();
 
   const removeDishFromCart = (id) => {
@@ -29,7 +30,7 @@ export default function OrderCard({ cartDishes }) {
             <ContentWrapper>
               <span>{dish.quantity}x</span>
               <h1>{dish.name}</h1>
-              <p>R$ {dish.price.toFixed(2).replace('.', ',')}</p>
+              <p>R$ {dish.price.toFixed(2).replace(".", ",")}</p>
             </ContentWrapper>
             <button onClick={() => removeDishFromCart(dish.id)}>Excluir</button>
           </div>

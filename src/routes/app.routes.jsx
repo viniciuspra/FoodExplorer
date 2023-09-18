@@ -1,14 +1,15 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/auth";
+
 import { hasAdminAccess, hasUserAccess } from "../utils/authorization";
 
-import Home from "../pages/Home";
-import New from "../pages/New";
-import Edit from "../pages/Edit";
-import Details from "../pages/Details";
-import Cart from "../pages/Cart";
-import Favorites from "../pages/Favorites";
-import OrderHistory from "../pages/OrderHistory";
+import { New } from "../pages/New";
+import { Home } from "../pages/Home";
+import { Edit } from "../pages/Edit";
+import { Cart } from "../pages/Cart";
+import { Details } from "../pages/Details";
+import { Favorites } from "../pages/Favorites";
+import { OrderHistory } from "../pages/OrderHistory";
 
 const ProtectedRoute = ({ element: Element, permissions }) => {
   const { user } = useAuth();
@@ -23,7 +24,7 @@ const ProtectedRoute = ({ element: Element, permissions }) => {
   return <Element />;
 };
 
-export default function AppRoutes() {
+export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />

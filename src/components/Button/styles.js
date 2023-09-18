@@ -17,15 +17,18 @@ export const Container = styled.button`
   font-family: "Poppins", serif;
   font-size: clamp(1.1rem, 0.5rem + 1vw, 1.6rem);
 
-  background-color: ${({ theme, $isblack }) => $isblack ? theme.COLORS.DARK_800 : theme.COLORS.TOMATO_100};
+  background-color: ${({ theme, $isblack }) =>
+    $isblack ? theme.COLORS.DARK_800 : theme.COLORS.TOMATO_100};
   color: ${({ theme }) => theme.COLORS.WHITE};
 
   &:hover {
-    background-color: ${({ theme, $isblack }) => $isblack ? theme.COLORS.DARK_900 : theme.COLORS.TOMATO_200};
+    background-color: ${({ theme, $isblack }) =>
+      $isblack ? theme.COLORS.DARK_900 : theme.COLORS.TOMATO_200};
   }
 
   &:disabled {
-    background-color: ${({ theme, $isblack }) => $isblack ? theme.COLORS.DARK_900 : theme.COLORS.TOMATO_400};
+    background-color: ${({ theme, $isblack }) =>
+      $isblack ? theme.COLORS.DARK_900 : theme.COLORS.TOMATO_400};
     pointer-events: none;
     cursor: not-allowed;
   }

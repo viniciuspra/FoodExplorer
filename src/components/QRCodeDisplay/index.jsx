@@ -1,7 +1,8 @@
 import QRCode from "qrcode.react";
+
 import { Container } from "./styles";
 
-export default function QRCodeDisplay() {
+export function QRCodeDisplay() {
   const QRCodeData = "https://github.com/Viniciuspra";
 
   return (

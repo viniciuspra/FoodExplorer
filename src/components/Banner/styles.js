@@ -7,7 +7,7 @@ export const Container = styled.div`
   ${media.greaterThan("mobile")`
     padding: 6rem 4rem 3rem;
   `}
-  
+
   ${media.greaterThan("tablet")`
     padding: 12rem 6.5rem 4rem;
   `}
@@ -15,7 +15,6 @@ export const Container = styled.div`
   ${media.greaterThan("desktop")`
     padding: 16rem 10rem 6rem;
   `}
-
 `;
 
 export const ContentWrapper = styled.div`
@@ -81,7 +80,6 @@ export const ContentWrapper = styled.div`
     }
     > p {
       font-size: clamp(0.5rem, 0.3rem + 1vw, 1.4rem);
-      
     }
   }
 `;

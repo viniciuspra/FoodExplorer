@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ export const Button = styled.button`
   cursor: pointer;
   outline: none;
   margin: 0 0.5rem;
-`
+`;
 
 export const Value = styled.span`
   font-size: 1.6rem;

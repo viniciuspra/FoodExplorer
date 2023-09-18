@@ -1,8 +1,8 @@
-import { Container } from "./styles"
+import { Hexagon } from "lucide-react";
 
-import { Hexagon } from "lucide-react"
+import { Container } from "./styles";
 
-export default function Footer() {
+export function Footer() {
   return (
     <Container>
       <h3>
@@ -10,5 +10,5 @@ export default function Footer() {
       </h3>
       © 2023 - Todos os direitos reservados.
     </Container>
-  )
+  );
 }

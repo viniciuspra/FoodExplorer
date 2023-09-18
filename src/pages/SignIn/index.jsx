@@ -1,18 +1,17 @@
-import { Container, Form } from "./styles";
-
+import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { useAuth } from "../../hooks/auth";
-import { useMediaQuery } from "react-responsive";
-
 import { Link } from "react-router-dom";
-
-import LogoFoodExplorer from "../../components/LogoFoodExplorer";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
 
 import { Mail, Lock } from "lucide-react";
 
-export default function SignIn() {
+import { LogoFoodExplorer } from "../../components/LogoFoodExplorer";
+import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
+
+import { Container, Form } from "./styles";
+
+export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,7 +20,7 @@ export default function SignIn() {
   const isMobile = useMediaQuery({ maxWidth: 1024 });
 
   function handleSignIn(e) {
-    e.preventDefault()
+    e.preventDefault();
     signIn({ email, password });
   }
 
@@ -29,7 +28,7 @@ export default function SignIn() {
     <Container>
       <LogoFoodExplorer fill="#065E7C" stroke="#065E7C" size="24" />
       <Form>
-        { !isMobile ? <h1>Faça login</h1> : ''}
+        {!isMobile ? <h1>Faça login</h1> : ""}
         <label>
           <span>E-mail</span>
           <Input

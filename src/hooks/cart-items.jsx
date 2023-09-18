@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import useLocalStorage from "./useLocalStorage";
+import { useLocalStorage } from "./useLocalStorage";
 
 const CartContext = createContext();
 
@@ -9,8 +9,9 @@ function CartProvider({ children }) {
   );
 
   const addToCart = (id, quantity) => {
-    const existingCartItem = cartItems ? cartItems.findIndex((item) => item.id === id) : -1;
-    console.log(existingCartItem, cartItems);
+    const existingCartItem = cartItems
+      ? cartItems.findIndex((item) => item.id === id)
+      : -1;
     if (existingCartItem !== -1) {
       const updatedCart = [...cartItems];
       updatedCart[existingCartItem].quantity += quantity;

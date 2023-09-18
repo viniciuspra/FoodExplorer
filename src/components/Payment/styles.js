@@ -39,8 +39,8 @@ export const Option = styled.div`
   padding: 1.8rem;
 
   border: 1px solid #ccc;
-  border-radius: ${({ isFirst, isLast }) =>
-    isFirst ? "4px 0 0 0" : isLast ? "0 4px 0 0" : "none"};
+  border-radius: ${({ $isfirst, $islast }) =>
+    $isfirst ? "4px 0 0 0" : $islast ? "0 4px 0 0" : "none"};
 
   cursor: pointer;
 `;

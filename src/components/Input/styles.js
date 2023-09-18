@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.COLORS.DARK_900};
@@ -13,18 +13,19 @@ export const Container = styled.div`
   padding: 0 1rem;
 
   > input {
-  width: 100%;
-  height: 4rem;
+    width: 100%;
+    height: 4rem;
 
-  font-size: 1.4rem;
+    font-size: 1.4rem;
 
-  color: ${({ theme }) => theme.COLORS.WHITE};
-  background: transparent;
-  border: 0;
+    color: ${({ theme }) => theme.COLORS.WHITE};
+    background: transparent;
+    border: 0;
 
-  outline: none;
+    outline: none;
 
-  &::placeholder {
-    color: ${({ theme }) => theme.COLORS.GRAY_200};
-  }}
-`
+    &::placeholder {
+      color: ${({ theme }) => theme.COLORS.GRAY_200};
+    }
+  }
+`;

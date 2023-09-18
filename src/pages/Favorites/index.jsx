@@ -1,10 +1,12 @@
-import { Container, NoFavoriteDishes } from "./styles";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import FavoriteCard from "../../components/FavoriteCard";
 import { useFavoritesContext } from "../../hooks/favorites";
 
-export default function Favorites() {
+import { FavoriteCard } from "../../components/FavoriteCard";
+import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header";
+
+import { Container, NoFavoriteDishes } from "./styles";
+
+export function Favorites() {
   const { favorites } = useFavoritesContext();
 
   return (

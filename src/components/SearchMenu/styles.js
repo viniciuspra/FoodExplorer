@@ -62,9 +62,9 @@ export const ContentWrapper = styled.div`
 `;
 
 export const InputWrapper = styled.div`
-  padding: 3.6rem 0 ;
+  padding: 3.6rem 0;
 
-  ${media.greaterThan('mobile')`
+  ${media.greaterThan("mobile")`
     padding: 0;
     margin-bottom: 3.6rem;
   `}
